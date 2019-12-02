@@ -72,7 +72,11 @@
     // 输出 ["join", "allen", "fileaccent"]
   ```
 
-  与join不同的是,如果split后面的括号中没有东西,那么他会把整个字符串变成一个长度为1, 第一项为该字符串的数组.如果括号里为 '' (为空,不是空格),那么他会一个一个字母的分割开来如果为其他字符,则为join()的逆过程
+  与join不同的是,如果split后面的括号中没有东西,那么他会把整个字符串变成一个长度为1, 第一项为该字符串的数组.
+
+  如果括号里为 '' (为空,不是空格),那么他会一个一个字母的分割开来.
+
+  如果为其他字符,则为join()的逆过程
 
   #### 上述两种结合
 
@@ -150,8 +154,6 @@
   ```
   ![js方法sort](img\js方法sort.PNG)
     
-  通过这张图发现 它做的一个数字排序的过程(有点诡异,和我们想的不太一样);
-
   return a - b;
 
   从小到大排列;
@@ -159,6 +161,8 @@
   return b - a;
 
   从大到小排列;
+
+  通过这张图发现 它做的一个数字排序的过程(有点诡异,和我们想的不太一样);
 
   以从小到大排序为例:
 
@@ -171,7 +175,7 @@
   返回正数就将小的那个插到前面适合的位置,重复直到数组从小到大排列
 
   #### reverse() 反转函数
-  
+
   反转数组项的顺序
 
   ``` javascript
@@ -183,7 +187,7 @@
   该方法返回改变后的数组,原数组也改变,这点和 sort() 相同
 
   #### concat() 追加函数
-  
+
   向数组后添加项目不只一个
 
   ``` javascript
@@ -198,7 +202,7 @@
   <span style="color:rgb(200,45,124)">注意concat不改变原数组!</span>
 
   concat 后面的括号中,可以传入单个字符,可以传一个数组,他们都会被添加到最后,若要添加一个数组的项,则要传入[[8,9]];
-  
+
   #### slice () 截取函数
 
   返回从原数组中指定开始下标到结束下标之间的项组成的新数组
@@ -219,7 +223,7 @@
   ```
 
   #### splice () 万能函数
-  
+
   添加删除样样都可以做, 注意会改变原数组
 
   ``` javascript
@@ -248,20 +252,120 @@
   ```
 
   和我们想的不太一样
-  
+
   如何把数组接在相应的位置,等后面有时间讨论
 
-  #### indexOf () 和 lastIndexOf ()
+  #### indexOf () 和 lastIndexOf () 查找函数
 
-  查找元素在数组中的位置,如果找到了返回序号,找不到返回 -1 
+  查找元素在数组中的位置,如果找到了返回序号,找 不到返回 -1
+
   第一个参数是查找的元素,
-  第二个是开始查找的位置.
+
+  第二个参数是开始查找的位置.
+
+  第三个参数是查找的位数,从开始位置查找几位;
+
   indexOf 从左到右 没有第二个参数默认从开头开始
+
   lastIndexOf 从右到左 没有第二个参数默认从结尾开始
+
   ``` javascript 
     var arr1 = [1,4,5,6,9,14];
     console.log(arr1.indexOf(5)); // 2
     console.log(arr1.indexOf(5,4)); // -1
     console.log(arr1.lastIndexOf(5)); // 2
+    console.log(arr1.lastIndexOf(5,0,2)); // -1
     console.log(arr1.lastIndexOf(5,1)); // -1
   ```
+
+  #### forEach(), map() 遍历函数
+  接受一个类型为函数的参数
+
+  第一个参数为该项的值
+
+  第二个参数为该项的序号
+
+  第三个参数为数组本身
+
+  ``` javascript
+    var arr1 = [1,4,2,4,5,7,8,10];
+    arr1.forEach(function(val, index, arr1) {
+      val = val * val;
+      console.log(val); // 1
+      console.log(index); // 0
+      console.log(arr1); // [1,4,2,4,5,7,8,10]
+      // 以第一项为例
+    })
+    console.log(arr1); // [1, 4, 2, 4, 5, 7, 8, 10]
+    var arr2 = [1,4,2,4,5,7,8,10];
+    console.log(arr2.map(function(val) {
+      return val * val;
+    })); // [1, 16, 4, 16, 25, 49, 64, 100]
+    console.log(arr2); // [1, 4, 2, 4, 5, 7, 8, 10]
+  ```
+  从上述的测试我们可以看到:
+
+  forEach只能读取信息,不能改变该数组的值,只返回undefined,
+  故只可以进行,求和等等基本操作
+
+  map可以操作数组, 返回操作后的数组,不改变原数组,比较强大!
+
+  #### filter() 过滤函数
+  ``` javascript
+  arr3 = ['a',1,3,46,'b'];
+  console.log(arr3.filter((val, item) => {
+    return typeof(val) === 'string'
+  })) // ["a", "b"]
+  ```
+  filter()同样接受一个函数参数
+
+  如果返回 true,则保存该项,返回值为所有保存项的数组,
+  其余和上述的函数相同
+
+  #### every() some() 整体判断函数
+
+  every()判断每项是否符合条件,如果符合则返回 true ,否则返回 false
+
+  some()判断是否有项符合条件,如果有返回 true, 否则返回 false
+
+  ``` javascript
+    var arr1 = [1,5,5,7,8,9,11];
+    console.log(arr1.every((val) => {
+      return val < 10;
+    }))
+    console.log(arr1.some((val) => {
+      return val < 10;
+    }))
+  ```
+
+  #### reduce() reduceRight() 递归函数
+
+  这两个方法都会实现迭代数组的所有项，然后构建一个最终返回的值。
+
+  reduce()方法从数组的第一项开始，逐个遍历到最后,
+
+  而 reduceRight()则从数组的最后一项开始，向前遍历到第一项。
+
+  这两个方法都接收两个参数：
+
+  一个在每一项上调用的函数和（可选的）作为归并基础的初始值。
+
+  传给 reduce()和 reduceRight()的函数接收 4 个参数：
+
+  前一个值、当前值、项的索引和数组对象。
+
+  这个函数返回的任何值都会作为第一个参数自动传给下一项。
+
+  第一次迭代发生在数组的第二项上，因此第一个参数是数组的第一项，第二个参数就是数组的第二项。
+
+  下面代码用reduce()实现数组求和.
+
+  ``` javascript
+  var values = [1,2,3,4,5];
+  var sum = values.reduceRight(function(prev, cur, index, array){
+  return prev + cur;
+  });
+  console.log(sum); // 15
+  ```
+
+  所有数组方法到此结束

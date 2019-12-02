@@ -89,6 +89,33 @@
     var arr1 = [1,4,5,6,9,14];
     console.log(arr1.indexOf(5));
     console.log(arr1.indexOf(5,4));
+    console.log(arr1.lastIndexOf(5,0,2)); // -1
+    var arr1 = [1,4,2,4,5,7,8,10];
+    arr1.forEach(function(val, index, arr1) {
+      val = val * val;
+    })
+    console.log(arr1); // [1, 4, 2, 4, 5, 7, 8, 10]
+    var arr2 = [1,4,2,4,5,7,8,10];
+    console.log(arr2.map(function(val) {
+      return val * val;
+    })); // [1, 16, 4, 16, 25, 49, 64, 100]
+    console.log(arr2); // [1, 4, 2, 4, 5, 7, 8, 10]
+    arr3 = ['a',1,3,46,'b'];
+    console.log(arr3.filter((val, item) => {
+      return typeof(val) === 'string'
+    })) // ["a", "b"]
+    var arr1 = [1,5,5,7,8,9,11];
+    console.log(arr1.every((val) => {
+      return val < 10;
+    })) // false
+    console.log(arr1.some((val) => {
+      return val < 10;
+    })) // true
+    var values = [1,2,3,4,5];
+    var sum = values.reduceRight(function(prev, cur, index, array){
+    return prev + cur;
+    });
+    console.log(sum); // 15
   </script>
 </body>
 </html>
