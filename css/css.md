@@ -112,6 +112,12 @@
   overflow: hidden;
 
   ```
+  实现单行文本的溢出显示省略号
+  ```css
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
+  ```
 
    5.设置英文换行
 
@@ -127,5 +133,6 @@
     便可使用
     text-align:center;和Vertical-align:center;居中
   ```
-
+  7. marign 的 四个是 从上到右到下到坐
+               两个是 上下到左右
    
