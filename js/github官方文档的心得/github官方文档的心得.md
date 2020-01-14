@@ -2901,7 +2901,7 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
   * 目标阶段 —— 事件到达目标元素。
   * 冒泡阶段 —— 事件从元素上开始冒泡。
   ### 事件委托
-  event.target 获取包含单击位置的最内层元素
+  #### event.target 获取包含单击位置的最内层元素(核心)
   我们的想法是，如果我们有许多元素是以类似的方式处理的，那么我们就不需要给每个元素分配一个处理器 —— 而是在它们共同的祖先上面添加一个处理器。
   ``` javascript
   able.onclick = function(event) {
@@ -2914,3 +2914,677 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
     highlight(td); // (4)
   };
   ```
+  #### 委托示例：标记中的操作
+  例如，我们想要制作一个有“保存”、“加载”和“搜索”等功能的菜单。有一个拥有 save、load 和 search 等方法的对象。
+
+  第一个想法可能是为每个按钮分配一个单独的处理器。但有一个更优雅的解决方案。我们可以为整个菜单添加一个处理器，并为有方法调用的按钮添加 data-action 属性：
+
+  ``` javascript
+  <div id="menu">
+    <button data-action="save">Save</button>
+    <button data-action="load">Load</button>
+    <button data-action="search">Search</button>
+  </div>
+
+  <script>
+    class Menu {
+      constructor(elem) {
+        this._elem = elem;
+        elem.onclick = this.onClick.bind(this); // (*)
+      }
+
+      save() {
+        alert('saving');
+      }
+
+      load() {
+        alert('loading');
+      }
+
+      search() {
+        alert('searching');
+      }
+
+      onClick(event) {
+        let action = event.target.dataset.action;
+        if (action) {
+          this[action]();
+        }
+      };
+    }
+
+    new Menu(menu);
+  </script>
+  ```
+  ### 浏览器默认动作
+  许多事件会自动触发浏览器动作。
+
+  例如：
+
+  * 单击一个链接 —— 触发到它的 URL。
+  * 单击表单中的提交按钮 —— 触发提交到服务器的动作。
+  * 在文本上按下鼠标按键并移动 —— 选中文本。
+  阻止方法:
+  ``` javascript
+  <a href="/" onclick="return false">Click here</a> // return false 只实用与分发 on<event>的事件
+
+  <a href="/" onclick="event.preventDefault()">here</a>
+  ```
+  阻止进一步的事件
+  input 如果没有 mousedown ,则不会触发 focus()
+  ``` javascript
+  <input value="Focus works" onfocus="this.value=''">
+  <input onmousedown="return false" onfocus="this.value=''" value="Click me">
+  ```
+  * event.preventDefault() 阻止默认行为
+
+  ### 生成自定义事件
+
+  #### 事件构造器
+
+  ``` javascript
+  let event = new Event(event type[, options]);
+
+  ```
+  event type —— 可以是任何字符串，比如 "click" 或者我们自己喜欢的 "hey-ho!"。
+
+  options —— 具有两个可选属性的对象：
+
+  bubbles: true/false —— 如果是 true，那么事件冒泡。
+  cancelable: true/false —— 如果 true，那么“默认动作”就会被阻止。之后我们会看到对于自定义事件，这些意味着什么。
+  默认情况下，它们都是 false：{bubbles: false, cancelable: false}。
+  ``` javascript
+  <button id="elem" onclick="alert('Click!');">Autoclick</button>
+  <script>
+    let event = new Event("click");
+    elem.dispatchEvent(event);
+  </script>
+  ```
+  event.isTrusted
+  有一个可以区分 “真实”用户事件和 script 生成事件的方法。
+
+  event.isTrusted 属性为 true，则事件来自真实用户的动作，为 false ，则说明事件由脚本生成。
+  ``` javascript
+  <h1 id="elem">Hello from the script!</h1>
+
+  <script>
+    // catch on document...
+    document.addEventListener("hello", function(event) { // (1)
+      alert("Hello from " + event.target.tagName); // Hello from H1
+    });
+
+    // ...dispatch on elem!
+    let event = new Event("hello", {bubbles: true}); // (2)
+    elem.dispatchEvent(event);
+  </script>
+  ```
+
+  但是并没有事件去触发上面的 hello 函数
+  #### event.preventDefault() 阻止自定义事件的发生
+  
+  ``` javascript
+  <pre id="rabbit">
+    |\   /|
+     \|_|/
+     /. .\
+    =\_Y_/=
+     {>o<} 
+  </pre>
+
+  <script>
+    // hide() will be called automatically in 2 seconds
+    function hide() {
+      let event = new CustomEvent("hide", {
+        cancelable: true // without that flag preventDefault doesn't work
+      });
+      if (!rabbit.dispatchEvent(event)) {
+        alert('the action was prevented by a handler');
+      } else {
+        rabbit.hidden = true;
+      }
+    }
+
+    rabbit.addEventListener('hide', function(event) {
+      if (confirm("Call preventDefault?")) {
+        event.preventDefault();
+      }
+    });
+
+    // hide in 2 seconds
+    setTimeout(hide, 2000);
+
+  </script>
+  ```
+  ### 鼠标事件类型
+  * 我们可以将鼠标事件分成两类：“简单”和“复杂”
+
+  #### 简单事件
+  最常用的简单事件是：
+
+  mousedown/mouseup
+  在元素上单击/释放鼠标按钮。
+  mouseover/mouseout
+  鼠标指针从一个元素上移入/出。
+  mousemove
+  鼠标每次移动到元素上时都会触发事件。
+  …还有其他几种事件类型，我们稍后会讨论它们。
+
+  #### 复杂事件
+  click
+  如果使用鼠标左键，则在 mousedown 及 mouseup 相继触发后触发该事件。
+  contextmenu
+  如果使用鼠标右键，则在 mousedown 后触发。
+  dblclick
+  在对元素进行双击后触发。
+  复杂事件是由简单事件组成的，因此理论上我们可以没有它们而运转。但它们的存在却给我们提供了极大的便利。
+
+  事件顺序
+  一个动作可能会触发多个事件。
+
+  比如，在按下鼠标按钮时，单击会首先触发 mousedown，然后释放鼠标按钮时，会触发 mouseup 和 click。
+
+  在单个动作触发多个事件时，它们的顺序是固定的。也就是说会遵循 mousedown → mouseup → click 的顺序。事件按照相同的顺序被处理：onmouseup 在 onclick 运行之前完成。
+  #### 获取按钮：which(这是啥?)
+  与单击相关的事件始终具有 which 属性，该属性允许获取准确的鼠标按钮。
+
+  它不用于 click和 contextmenu 事件，因为前者只发生在左键，而后者只发生在右击。
+
+  但如果我们跟踪 mousedown 和 mouseup，那么我们就需要它，因为这些事件在任意鼠标按钮按下时都会触发，所以 which 允许区分 “right-mousedown” 和 “left-mousedown”。
+
+  有三个可能的值：
+
+  event.which == 1 —— 左按钮
+  event.which == 2 —— 中间按钮
+  event.which == 3 —— 右按钮
+  中间按钮现在有些特殊，所有很少被使用。
+
+  ``` javascript
+  注意：在 Mac 上我们通常使用 Cmd 而不是 Ctrl (看看就好>.<)
+  在 Windows 和 Linux 上修改键是 Alt、Shift 和 Ctrl。在 Mac 上还有：Cmd，它对应于属性 metaKey。
+
+  在大多数情况下，当 Windows/Linux 使用 Ctrl 时，Mac 的用户会使用 Cmd。因此当 Windows 用户按下 Ctrl+Enter 或 Ctrl+A 时，Mac 用户会按下 Cmd+Enter 或 Cmd+A 等，大多数 app 使用 Cmd 而不是 Ctrl。
+
+  因此如果我们想支持 Ctrl+click，那么对于 Mac 用户来说，使用 Cmd+click 也是有意义的。这对于 Mac 用户来说非常舒服。
+
+  即使我们想迫使 Mac 用户使用 Ctrl+click —— 也非常困难。问题在于：Mac 上左击 Ctrl 被解释为右击，它会生成 contextmenu 事件，而不是像 Windows/Linxu 的 click 事件。
+
+  因此如果我们想让所有操作系统的用户感觉舒适，那么我们应该和 ctrlKey 一起使用 metaKey。
+
+  对于 JS 代码，这意味着我们应该检查 if (event.ctrlKey || event.metaKey)。
+  ```
+  坐标：clientX/Y，pageX/Y
+  所有的鼠标事件都有两种形式的坐标：
+
+  对于窗口而言：clientX 和 clientY。
+  对于文档而言：pageX 和 pageY。
+  比如，如果我们有一个 500 x 500 的窗口，鼠标在左上方，那么 clientX 和 clientY 都是 0。如果鼠标在中间，那么 clientX 和 clientY 就是 250。和它在文档中的位置无关。它们类似于 position:fixed。
+
+  将鼠标移动到输入字段上，可以看到 clientX/clientY（它在 iframe 中，因此坐标是相对于 iframe 而言的）
+
+  还有 CSS 方法可以终止选择：CSS UI 草案 中的 user-select 属性。(但是这段文字无法复制!)
+
+  大多数浏览器都支持它的前缀：  
+  ``` javascript
+    <style>
+      b {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+    </style>
+
+    Before...
+    <b ondblclick="alert('Test')">
+      Unselectable
+    </b>
+    ...After
+  ```
+  好的方法为阻止 mousedown
+  ``` javascript
+    Before...
+  <b ondblclick="alert('Click!')" onmousedown="return false">
+    Double-click me
+  </b>
+   ...After
+  ```
+  #### 取消选择(我感觉不可能用到 >.<)
+
+  我们可以在事件处理器中用 “post-factum” 取消它，而不是阻止选择它。
+  ``` javascript
+  这是方法：
+
+  Before...
+  <b ondblclick="getSelection().removeAllRanges()">
+    Double-click me
+  </b>
+  ...After
+  ```
+  #### 防止复制(这个可以)
+  ``` javascript
+  <div oncopy="alert('Copying forbidden!');return false">
+  Dear user,
+  The copying is forbidden for you.
+  If you know JS or HTML, then you can get everything from the page source though.
+</div>
+  ```
+  ### 移动：mouseover/out，mouseenter/leave
+
+  #### 这两个有额外属性 relatedTarget
+
+  对于 mouseover：
+
+  event.target —— 是鼠标经过的那个元素。
+
+  event.relatedTarget —— 是鼠标上一次经过的元素。
+
+  mouseout 则与之相反：
+
+  event.target —— 是鼠标离开的元素。
+
+  event.relatedTarget —— 是当前指针位置下的（鼠标进入的）元素。
+
+  relatedTarget 可以为 null
+  relatedTarget 属性可以为 null。
+
+  这很正常，而且意味着鼠标不是来源于另一个元素，而是窗口以外。或者是离开了窗口。
+
+  当我们在代码中使用 event.relatedTarget 时，我们应该记住这种可能性。如果我们访问 event.relatedTarget.tagName，那么就会出现错误。
+  
+  #### 缺点:
+  进入子元素时的“额外” mouseout
+  想象一下 —— 鼠标指针进入一个元素。mouseover 被触发。然后光标进入一个子元素。有趣的是，在这种情况下 mouseout 会被触发。光标仍然在元素中，但我们从它那儿接收到了 mouseout 事件！
+
+  Mouseenter, mouseleave
+
+  mouseenter/mouseleave 事件类似于 mouseover/mouseout。当鼠标指针移入/移出元素时，它们也会被触发。
+
+  但有两个不同之处：
+
+  1. 元素内部的转换不会有影响。
+  2. mouseenter/mouseleave 事件不会冒泡。
+
+  ### 拖放鼠标事件
+
+  拖放算法
+  拖放基础算法就像这样：
+
+  在可拖动元素上捕获 mousedown 事件。
+  准备要移动的元素（可能创建它的副本或其他任何东西）。
+  然后在 mousemove 上，通过改变 left/top 和 position:absolute 来移动它。
+  在 mouseup（释放按钮）中 —— 执行所有完成拖放相关的动作。
+
+  ``` javascript
+  ball.onmousedown = function(event) {
+
+  let shiftX = event.clientX - ball.getBoundingClientRect().left;
+  let shiftY = event.clientY - ball.getBoundingClientRect().top;
+
+  ball.style.position = 'absolute';
+  ball.style.zIndex = 1000;
+  document.body.append(ball);
+
+  moveAt(event.pageX, event.pageY);
+
+  // 球中心在 (pageX, pageY) 坐标上
+  function moveAt(pageX, pageY) {
+    ball.style.left = pageX - shiftX + 'px';
+    ball.style.top = pageY - shiftY + 'px';
+  }
+
+  function onMouseMove(event) {
+    moveAt(event.pageX, event.pageY);
+  }
+
+  // (3) 用 mousemove 移动球
+  document.addEventListener('mousemove', onMouseMove);
+
+  // (4) 释放球，移除不需要的处理器
+  ball.onmouseup = function() {
+    document.removeEventListener('mousemove', onMouseMove);
+    ball.onmouseup = null;
+  };
+
+};
+
+ball.ondragstart = function() {
+  return false;
+};
+```
+
+ #### document.elementFromPoint(clientX, clientY)
+ 
+ document.elementFromPoint(clientX, clientY) 的方法。它会根据给定的窗口相对坐标，返回该处嵌套最深的元素（如果坐标在窗口之外，则返回 null）。
+
+### 键盘侠
+#### Keydown 和 keyup
+当键被按下时，keydown 事件会发生，而当键被释放时，keyup 事件会发生。
+#### event.code 和 event.key
+事件对象 key 属性允许获取字符，而事件对象的 code 属性允许获取“物理秘钥代码”。
+
+例如，相同的键 Z 可以按下或者不按下 Shift。这给了我们两个不同的字符：小写的 z 和大写 Z。
+
+event.key 正是这个字符，并且它将是不同的。但是，event.code 是相同的：
+如果用户使用不同的语言，那么切换到另一种语言就会产生一个完全不同的字符，而不是 "Z"。这将成为 event.key 的值，而 event.code 则始终是一样的："KeyZ"。
+
+字符键有代码 "Key<letter>"："KeyA" 和 "KeyB" 等。
+数字键有代码："Digit<number>"："Digit0" 和 "Digit1" 等。
+特殊秘钥按其名称编码："Enter"、"Backspace" 和 "Tab" 等。
+如果键没有给出任何字符呢？例如，Shift 或 F1 或其他的。对于那些键的 event.key 则与 event.code 大致相同：
+
+Key	             event.key	              event.code
+
+F1	                F1	                       F1
+
+Backspace	       Backspace	               Backspace
+
+Shift	             Shift	             ShiftRight 或 ShiftLeft
+
+``` javascript
+document.addEventListener('keydown', function(event) {
+  if (event.code == 'KeyZ' && (event.ctrlKey || event.metaKey)) {
+    alert('Undo!')
+  }
+});
+```
+#### 总结
+按一个键总是会产生一个键盘事件，无论是符号键还是特殊键，比如 Shift 或 Ctrl 等。唯一的例外是 Fn，它有时会出现在笔记本电脑键盘上。它没有键盘事件，因为它通常在比 OS 低的级别上实现的。
+
+键盘事件：
+
+keydown —— 长久按键（如果按下长键则自动重复），
+
+keyup —— 释放按键时。
+
+主键盘事件属性：
+
+code —— “按键代码”（"KeyA"、"ArrowLeft" 等），具体到键盘上键的物理位置。
+
+key —— 非字符键的字符（"A"、"a" 等），通常具有和 code 一样的值。
+
+过去，键盘事件有时用于跟踪用户在表单字段中的输入。这很不可靠，因为输入源可以不同。我们有 input 和 change 事件来处理任何输入（之后我们会在 事件：change、input、cut、copy 和 paste 章节中作进一步介绍）。它们在任何输入后触发，包括鼠标或语音识别。
+
+当我们真正想要键盘时，我们应该使用键盘事件。比如，对热键或特殊键作出反应。
+
+### 滚动 (显示当前的滚动)
+``` javascript
+window.addEventListener('scroll', function() {
+  document.getElementById('showScroll').innerHTML = pageYOffset + 'px';
+});
+```
+#### 防止滚动(建议用css)
+
+### 表单属性和方法
+
+文档中的表单是一个特殊集合 document.forms 中的成员。
+
+document.forms 是一个命名集合：我们既可以使用名字也可以使用索引来获取表单。
+
+document.forms.my - 包含了 name="my" 的表单
+document.forms[0] - 文档中的第一个表单
+当我们有了一个表单，其中任何的元素都可以通过命名集合 form.elements 来获取到。
+
+比如说：
+``` javascript
+<form name="my">
+  <input name="one" value="1">
+  <input name="two" value="2">
+</form>
+
+<script>
+  // 获取表单
+  let form = document.forms.my; // <form name="my"> 元素
+
+  // 获取表单中的元素
+  let elem = form.elements.one; // <input name="one"> 元素
+
+  alert(elem.value); // 1
+</script>
+```
+
+#### 表单元素
+
+让我们来谈谈表单控件，主要关注于它们具体的特性。
+
+input 和 textarea
+
+通常来说，我们可以使用 input.value 或者 input.checked 来访问复选框的值。
+
+就像下面这样： (绝对不要使用 innerHTML)
+``` javascript
+input.value = "New value";
+
+textarea.value = "New text";
+
+input.checked = true; // 用于复选框或者单选按钮
+```
+
+#### select 和 option
+
+一个 <select> 元素有 3 个重要的属性：
+
+select.options —— <option> 元素的集合，
+
+select.value —— 所选选项的值，
+
+select.selectedIndex —— 所选选项的索引。
+
+所以我们会有三种方式来设置一个 <select> 元素的值：
+
+* 找到所需要的 <option> 元素之后设置 option.selected 为 true。
+
+* 设置 select.value 为对应的值。
+
+* 设置 select.selectedIndex 为对应选项的索引。
+
+第一个方式是最显而易见的，但是 (2) 和 (3) 通常来说会更简便。
+``` javascript
+<select id="select">
+  <option value="apple">Apple</option>
+  <option value="pear">Pear</option>
+  <option value="banana">Banana</option>
+</select>
+
+<script>
+  // 所有这三行做的是同一件事
+  select.options[2].selected = true;
+  select.selectedIndex = 2;
+  select.value = 'banana';
+</script>
+```
+和大多数其它控件不同，<select multiple> 允许多选。在这种情况下，我们需要遍历 select.options 来获取所有选定的值。
+
+就像下面这样：
+
+<select id="select" multiple>
+  <option value="blues" selected>Blues</option>
+  <option value="rock" selected>Rock</option>
+  <option value="classic">Classic</option>
+</select>
+
+<script>
+  // 从 multi-select 中获取所有选定的值
+  let selected = Array.from(select.options)
+    .filter(option => option.selected)
+    .map(option => option.value);
+
+  alert(selected); // blues，rock
+</script>
+##### 新的选项
+在选项元素的规范中，有一个很不错的简短语法用来创建 <option> 元素：
+
+option = new Option(text, value, defaultSelected, selected);
+该方法调用参数如下：
+
+text —— 选项中的文本，
+
+`value —— 选项的默认值,
+
+defaultSelected —— 如果这个值是 true，那么 selected 属性就会默认创建，
+
+selected —— 如果这个值是true`，那么这个选项就是已经被选择了。
+``` javascript
+let option = new Option("Text", "value");
+// 创建 <option value="value">Text</option>
+```
+
+### 聚焦：focus/blur
+
+focus/blur 事件
+``` javascript
+<style>
+  .invalid { border-color: red; }
+  #error { color: red }
+</style>
+
+Your email please: <input type="email" id="input">
+
+<div id="error"></div>
+
+<script>
+input.onblur = function() {
+  if (!input.value.includes('@')) { // not email
+    input.classList.add('invalid');
+    error.innerHTML = 'Please enter a correct email.'
+  }
+};
+
+input.onfocus = function() {
+  if (this.classList.contains('invalid')) {
+    // remove the "error" indication, because the user wants to re-enter something
+    this.classList.remove('invalid');
+    error.innerHTML = "";
+  }
+};
+</script>
+```
+#### 
+focus/blur 方法
+方法 elem.focus() 和 elem.blur() 可以设置和移除元素上的焦点。
+火狐浏览器 在onblur 中 调用 focus() 会失败
+
+注意，我们不可以通过在 onblur 事件处理器里调用 event.preventDefault() 来“阻止失去焦点”，因为 onblur 事件处理器是在元素失去焦点的之后运行的。
+#### 允许在任何元素上聚焦：tabindex
+
+从另一方面说，为了格式化某些东西而存在的元素像 <div>、
+<span> 和 <table> — 默认是不能被聚焦的。elem.focus() 方法
+不能作用于它们，而且 focus/blur 事件也绝不会被触发。
+使用 HTML 属性 tabindex 可以改变这种默认情况。
+
+这个属性的目的是当使用 Tab 在元素之间切换的时候指定它们的排列顺序。
+
+也就是说：如果我们有两个元素，第一个有属性 tabindex="1"，第二个有 tabindex="2"，然后当焦点在第一个元素的时候，按下 Tab 键，会让焦点移动到第二个元素身上。
+
+这里有两个特别的值：
+
+tabindex="0" 让元素成为最后一个。
+tabindex="-1" 意味着 Tab 应该忽略这个元素。
+任何元素如果有属性 tabindex，它将会支持聚焦。
+
+``` javascript
+
+Click the first item and press Tab. Keep track of the order. Please note that many subsequent Tabs can move the focus out of the iframe with the example.
+<ul>
+  <li tabindex="1">One</li>
+  <li tabindex="0">Zero</li>
+  <li tabindex="2">Two</li>
+  <li tabindex="-1">Minus one</li>
+</ul>
+
+<style>
+  li { cursor: pointer; }
+  :focus { outline: 1px dashed green; }
+</style>
+```
+* 注意:顺序就像这样：1 - 2 - 0（0 总是最后一个）。正常情况下，<li> 元素不支持被聚焦，但 tabindex 使这成为可能，顺带还会触发事件和使 :focus 样式生效。
+* elem.tabIndex 也一样有效
+我们可以通过 JavaScript 使用 elem.tabIndex 来添加 tabindex 属性。效果是一样的。
+
+focus 和 blur 没有冒泡,但是可以捕获
+有 focusin 和 focusout 事件可以使用 — 恰好和 focus/blur 事件很像,只不过它们会向上冒泡。
+``` javascript
+<form id="form">
+  <input type="text" name="name" value="Name">
+  <input type="text" name="surname" value="Surname">
+</form>
+
+<style> .focused { outline: 1px solid red; } </style>
+
+<script>
+  // put the handler on capturing phase (last argument true)
+  form.addEventListener("focusin", () => form.classList.add('focused'));
+  form.addEventListener("focusout", () => form.classList.remove('focused'));
+</script>
+```
+* document.activeElement 来获取正在被聚焦的元素
+
+### 事件：change
+change 事件是在元素变化结束之后触发的。
+
+对于文本输入框来说，当其失去焦点的时候就会触发 change 事件。
+
+例如，当我们在下面的文本区域中输入的时候，change 事件不会被触发。但是当我们将焦点移到别处时，例如点击按钮，就会触发 change 事件：
+
+``` javascript
+<input type="text" onchange="alert(this.value)">
+<input type="button" value="Button">
+```
+对于其它元素：select，input type=checkbox/radio，change 事件会在选项变化后立即触发。
+### 事件：input
+每当输入的值发生改变时，就会触发 input 事件。
+
+例如：
+
+<input type="text" id="input"> oninput: <span id="result"></span>
+<script>
+  input.oninput = function() {
+    result.innerHTML = input.value;
+  };
+</script>
+
+#### 事件：cut、copy 和 paste
+这些事件发生于剪切/拷贝/粘贴一个值的时候。
+
+它们属于 ClipboardEvent 类，并且提供对拷贝/粘贴的数据的访问方法。
+
+我们也可以使用 event.preventDefault() 来终止操作。
+
+例如，下面的代码阻止了所有的这样的事件，然后展示出了我们尝试剪切/拷贝/粘贴的内容：
+
+<input type="text" id="input">
+<script>
+  input.oncut = input.oncopy = input.onpaste = function(event) {
+    alert(event.type + ' - ' + event.clipboardData.getData('text/plain'));
+    return false;
+  };
+</script>
+事件：submit
+提交表单有两种方法：
+
+第一种 — 点击 <input type="submit"> 或者 <input type="image">。
+第二种 — 在输入框内按下 Enter 回车键。
+
+submit 和 click 的关系
+当在输入框中使用 Enter 发送表单时，click 事件在 <input type="submit"> 上也会触发。
+
+这是相当有趣的，因为实际上我们没有点击任何元素。
+
+
+#### submit 方法
+
+如果要手动向服务器提交表单，我们可以调用 form.submit()。
+
+### 页面生命周期
+
+HTML 页面的生命周期有三个重要事件：
+
+* DOMContentLoaded —— 浏览器完成全部 HTML 的加载，并构建 DOM 树，但像 <img> 和样式这样的外部资源可能还没有加载完成。
+* load —— 浏览器加载完所有资源，包括 HTML 文档，图像，样式等。
+* beforeunload/unload —— 当用户离开页面时。
+每个事件都是有用的：
+
+* DOMContentLoaded 事件 —— DOM 已经准备好，因此事件处理器可以查找 DOM 节点，并初始化接口。
+* load 事件 —— 外部资源加载完成后，我们就可以应用样式表，获取图像大小等。
+beforeunload 事件 —— 用户即将离开：我们可以检查用户是否保存了修改，并询问他是否真的要离开。
+* unload 事件 —— 用户几乎已经离开了，但是我们仍然可以启动一些操作，比如发送统计数据。
+

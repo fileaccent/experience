@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    #timeContainer {
+      width:400px;
+      height:600px;
+      overflow-y:scroll;
+      overflow-x:hidden;
+      margin:0 auto;
+      margin-top:30px;
+    }
+    #timeContainer > div {
+      width:400px;
+      height:100px;
+    }
+    #greenArrow > div{
+      width:0;
+      height:0;
+      border-width: 20px 10px;
+      border-style:solid;
+      border-color: transparent transparent #ffcccc transparent;
+      position: fixed;
+      top:60px;
+      left:calc(100vw - 600px)
+    }
+  </style>
+</head>
+<body>
+  <div id="greenArrow">
+    <div></div>
+  </div>
+  <div id="timeContainer">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+  <script>
+    greenArrow.onclick = function () {
+      timeContainer.scrollTop= 0;
+    }
+    let time = new Date();
+    for( let i = 0; i < timeContainer.querySelectorAll('div').length; i++) {
+      timeContainer.querySelectorAll('div')[i].innerHTML = time;
+    }
+    function parseDom(arg) {
+  　　let objE = document.createElement("div");
+  　　objE.innerHTML = arg;
+  　　return objE.children;
+    };
+    greenArrow.hidden = true;
+    timeContainer.addEventListener('scroll', function() {
+      console.log(timeContainer.querySelectorAll('div')[0].getBoundingClientRect().top);
+      while(true) {
+        greenArrow.hidden = timeContainer.querySelectorAll('div')[0].getBoundingClientRect().top > 0
+        let timeContainerBottom = timeContainer.querySelectorAll('div')[timeContainer.querySelectorAll('div').length - 1];
+        if (timeContainerBottom.getBoundingClientRect().bottom > timeContainer.clientHeight + 100) break;
+        timeContainer.append(...parseDom(`
+          <div> ${new Date()}</div>
+        `));
+      }
+    })
+  </script>
+</body>
+</html>

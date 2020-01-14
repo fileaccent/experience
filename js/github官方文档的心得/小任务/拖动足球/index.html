@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    #greenBlock {
+      width:1000px;
+      height:600px;
+      background-color: rgb(94, 216, 159);
+      margin:0 auto;
+      margin-top:50px;
+    }
+    #ball {
+      width:50px;
+      height:50px;
+      border-radius:50%;
+      background-color:aliceblue;
+      position:absolute;
+      top:200px;
+      left:250px;
+    }
+  </style>
+</head>
+<body>
+  <div id="greenBlock">
+    <div id="ball"></div>
+  </div>
+  <script>
+    ball.onmousedown = function(event) {
+      let horizontalDistance = event.clientX - ball.getBoundingClientRect().left; // 右下角为正,不能用 ball.style.left,头让门夹了
+      let verticalDistance = event.clientY - ball.getBoundingClientRect().top;
+      console.log(event.clientX, event.clientY);
+      greenBlock.onmousemove = function(event) {
+        ball.style.left = event.clientX - horizontalDistance + 'px';
+        ball.style.top = event.clientY - verticalDistance + 'px';
+        console.log(event.clientX, event.clientY);
+        console.log(ball.getBoundingClientRect().left,ball.getBoundingClientRect().top);
+      }
+      ball.onmouseup = function() {
+        greenBlock.onmousemove = null;
+        ball.onmouseup = null;
+      }
+    }
+    ball.ondragstart = function() {
+      return false;
+    };
+  </script>
+</body>
+</html>

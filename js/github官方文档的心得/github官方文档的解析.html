@@ -28,6 +28,7 @@
   </style>
 </head>
 <body>
+  <input type="text"/>
   <!-- 
   <div data-widget-name="hate">hi</div>
   <div style="height:200px;width:200px;background-color: rgb(101, 145, 211);">1</div>
@@ -253,6 +254,9 @@ $(function(){
   // 创建节点树
   addHTML();
   */
+  document.querySelector('input').addEventListener('keydown', function(event) {
+    console.log(event);
+  })
   </script>
   <div>hi</div>
 </body>
