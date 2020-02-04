@@ -9,15 +9,15 @@
 a**b // a的b次方
 ```
 ``` javascript
-alert( null > 0 );  // (1) false
-alert( null == 0 ); // (2) false
-alert( null >= 0 ); // (3) true
+console.log( null > 0 );  // (1) false
+console.log( null == 0 ); // (2) false
+console.log( null >= 0 ); // (3) true
 ```
 null 在相等 == 型比较中不会被转换,在 >= 中会转换成 0
 ``` javascript
-alert( undefined > 0 ); // false (1)
-alert( undefined < 0 ); // false (2)
-alert( undefined == 0 ); // false (3)
+console.log( undefined > 0 ); // false (1)
+console.log( undefined < 0 ); // false (2)
+console.log( undefined == 0 ); // false (3)
 ```
 undefined 在比较时,会被转换成 NaN
 
@@ -26,17 +26,17 @@ undefined 在比较时,会被转换成 NaN
 
 * 一个或 "||" 运算的链，将返回第一个真值，如果不存在真值，就返回该链的最后一个值。
 ``` javascript
-alert( 1 || 0 ); // 1（1 是真值）
-alert( true || 'no matter what' ); //（true 是真值）
-alert( null || 1 ); // 1（1 是第一个真值）
-alert( null || 0 || 1 ); // 1（第一个真值）
-alert( undefined || null || 0 ); // 0（所有的转化结果都是 false，返回最后一个值）
+console.log( 1 || 0 ); // 1（1 是真值）
+console.log( true || 'no matter what' ); //（true 是真值）
+console.log( null || 1 ); // 1（1 是第一个真值）
+console.log( null || 0 || 1 ); // 1（第一个真值）
+console.log( undefined || null || 0 ); // 0（所有的转化结果都是 false，返回最后一个值）
 ```
 * 与操作寻找第一个假值
 * 两个非运算 !! 有时候用来将某个值转化为布尔类型：
 * 注意: 
   禁止 break/continue 在 ‘?’ 的右边
-  (i > 5) ? alert(i) : continue; // continue 不允许在这个位置
+  (i > 5) ? console.log(i) : continue; // continue 不允许在这个位置
 * break <labelName> 语句跳出循环至标签处：
 ``` javascript
   outer: for (let i = 0; i < 3; i++) {
@@ -47,7 +47,7 @@ alert( undefined || null || 0 ); // 0（所有的转化结果都是 false，返�
       // 用得到的值做些事……
     }
   }
-  alert('Done!');
+  console.log('Done!');
 ```
 * switch中的相等是严格相等
 
@@ -162,9 +162,9 @@ alert( undefined || null || 0 ); // 0（所有的转化结果都是 false，返�
     };
     for(let key in user) {
       // keys
-      alert( key );  // name, age, isAdmin
+      console.log( key );  // name, age, isAdmin
       // 属性键的值
-      alert( user[key] ); // John, 30, true
+      console.log( user[key] ); // John, 30, true
     }
   ```
 
@@ -175,9 +175,9 @@ alert( undefined || null || 0 ); // 0（所有的转化结果都是 false，返�
   所以，“49” 是一个整数属性名，因为我们把它转换成整数，再转换回来，它还是一样。但是 “+49” 和 “1.2” 就不行了：
   ``` javascript
     // Math.trunc 是内置的去除小数部分的方法。
-    alert( String(Math.trunc(Number("49"))) ); // "49"，同样，整数属性
-    alert( String(Math.trunc(Number("+49"))) ); // "49"，不同于 "+49" ⇒ 不是整数属性
-    alert( String(Math.trunc(Number("1.2"))) ); // "1"，不同于 "1.2" ⇒ 不是整数属性
+    console.log( String(Math.trunc(Number("49"))) ); // "49"，同样，整数属性
+    console.log( String(Math.trunc(Number("+49"))) ); // "49"，不同于 "+49" ⇒ 不是整数属性
+    console.log( String(Math.trunc(Number("1.2"))) ); // "1"，不同于 "1.2" ⇒ 不是整数属性
   ```
 
   所以如果想用原来的顺序,需要使用 '+'
@@ -190,7 +190,7 @@ alert( undefined || null || 0 ); // 0（所有的转化结果都是 false，返�
       "+1": "USA"
     };
     for(let code in codes) {
-      alert( +code ); // 49, 41, 44, 1
+      console.log( +code ); // 49, 41, 44, 1
     }
   ```
 
@@ -226,7 +226,7 @@ alert( undefined || null || 0 ); // 0（所有的转化结果都是 false，返�
    当输出时, Symbol 不会被隐性的转换为String.需要手动转化
   ``` javascript
     let id = Symbol("id");
-    alert(id.toString()); // Symbol(id)，现在它起作用了
+    console.log(id.toString()); // Symbol(id)，现在它起作用了
   ```
   1. Symbol 是唯一标识符的基本类型
 
@@ -255,7 +255,7 @@ alert( undefined || null || 0 ); // 0（所有的转化结果都是 false，返�
   ``` javascript
     let obj, method;
     obj = {
-      go: function() { alert(this); }
+      go: function() { console.log(this); }
     };
 
     obj.go();               // (1) [object Object]
@@ -317,8 +317,8 @@ alert( undefined || null || 0 ); // 0（所有的转化结果都是 false，返�
 
     let user = new User("Jack");
 
-    alert(user.name); // Jack
-    alert(user.isAdmin); // false
+    console.log(user.name); // Jack
+    console.log(user.isAdmin); // false
   ```
 
   ### 双语法构造函数：new.target
@@ -327,7 +327,7 @@ alert( undefined || null || 0 ); // 0（所有的转化结果都是 false，返�
   常规调用为空，如果通过 new 调用，则等于函数：
   ``` javascript
     function User() {
-      alert(new.target);
+      console.log(new.target);
     }
 
     // 不带 new：
@@ -345,7 +345,7 @@ alert( undefined || null || 0 ); // 0（所有的转化结果都是 false，返�
       this.name = name;
     }
     let john = User("John"); // 重新调用 new User
-    alert(john.name); // John
+    console.log(john.name); // John
   ```
 
   构造函数一般没有 return
@@ -388,14 +388,14 @@ toFixed(n) 保留 n 位小数四舍五入,注意结果是字符串
 
 如果要精确的四舍五入,需要将数字转化为整数
 ``` javascript
-  alert( 1.35.toFixed(1) ); // 1.4
-  alert( 6.35.toFixed(1) ); // 6.3
+  console.log( 1.35.toFixed(1) ); // 1.4
+  console.log( 6.35.toFixed(1) ); // 6.3
 ```
 isNaN 检测是否为有效有限数字类型, NaN和infinity会返回false
 
 ParseInt 和 ParseFloat 从字符串中抽取一个数字,要读取数字,数字必须在第一位
 ``` javascript
-  alert( parseInt('a123') ); // NaN, the first symbol stops the process
+  console.log( parseInt('a123') ); // NaN, the first symbol stops the process
 ```
 其实他们有第二个参数,可以规定读取数字的进制
 
@@ -415,7 +415,7 @@ Math.pow(n, power)
 * 用 for of 遍历字符
 ``` javascript
   for (let char of "Hello") {
-    alert(char); // H,e,l,l,o （char 变为“H”，然后是“e”，然后是“l”等）
+    console.log(char); // H,e,l,l,o （char 变为“H”，然后是“e”，然后是“l”等）
   }
 ```
 
@@ -433,10 +433,10 @@ pos 开始查找的位置
 let str = "Widget with id";
 
 if (str.indexOf("Widget") != -1) {
-    alert("We found it"); // 现在运行了！
+    console.log("We found it"); // 现在运行了！
 }
 if (~str.indexOf("Widget")) { // 自己别这么写,知道有就行了
-    alert("We found it"); // 现在运行了！
+    console.log("We found it"); // 现在运行了！
 }
 ```
 str.includes(substr, pos)
@@ -475,7 +475,7 @@ unshift 添加数组的第一个元素
 let arr = ["Apple", "Orange", "Pear"];
 
 for (let i = 0; i < arr.length; i++) {
-  alert( arr[i] );
+  console.log( arr[i] );
 }
 
 ```
@@ -484,7 +484,7 @@ for (let i = 0; i < arr.length; i++) {
   let fruits = ["Apple", "Orange", "Plum"];
   // 迭代数组元素
   for (let fruit of fruits) {
-    alert( fruit );
+    console.log( fruit );
   }
 ```
 
@@ -519,7 +519,7 @@ let users = [
 
 let user = users.find(item => item.id == 1);
 
-alert(user.name); // John
+console.log(user.name); // John
 ```
 * filter 过滤函数
 * map 批量修改函数,返回修改后的数组,原数组不改变非常强大
@@ -539,13 +539,13 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
 
   let result = arr.reduce((sum, current) => sum + current, 0);// 求和
 
-  alert(result); // 15
+  console.log(result); // 15
  ```
  * isArray
  ``` javascript
-  alert(Array.isArray({})); // false
+  console.log(Array.isArray({})); // false
 
-  alert(Array.isArray([])); // true
+  console.log(Array.isArray([])); // true
  ```
  * 其实 find, filter, map, sort 等 还有另一个参数 thisArg,用于设置,前面函数的 this 的指代
  ``` javascript
@@ -589,7 +589,7 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
 
   // 现在它可以运行了！
   for (let num of range) {
-    alert(num); // 1, 然后 2, 3, 4, 5
+    console.log(num); // 1, 然后 2, 3, 4, 5
   }
  ```
 
@@ -617,24 +617,24 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
 
     // 迭代键(vegetables)
     for (let vegetable of recipeMap.keys()) {
-      alert(vegetable); // cucumber, tomatoes, onion
+      console.log(vegetable); // cucumber, tomatoes, onion
     }
 
     // 迭代值 (amounts)
     for (let amount of recipeMap.values()) {
-      alert(amount); // 500, 350, 50
+      console.log(amount); // 500, 350, 50
     }
 
     // 迭代 [key, value] 对
     for (let entry of recipeMap) { // 效果跟 recipeMap.entries() 相同
-      alert(entry); // cucumber,500 (and so on)
+      console.log(entry); // cucumber,500 (and so on)
     }
   ```
   也可以使用 forEach 方法
   ``` javascript
     // 对每个 (key, value) 对运行 forEach 函数
     recipeMap.forEach( (value, key, map) => {
-      alert(`${key}: ${value}`); // cucumber: 500 etc
+      console.log(`${key}: ${value}`); // cucumber: 500 etc
     });
   ```
 
@@ -719,10 +719,10 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
   // 现在 visitedSet 有2个用户
 
   // 检查 John 是否访问过?
-  alert(visitedSet.has(john)); // true
+  console.log(visitedSet.has(john)); // true
 
   // 检查 Mary 是否访问过?
-  alert(visitedSet.has(mary)); // false
+  console.log(visitedSet.has(mary)); // false
 
   john = null;
 
@@ -743,19 +743,19 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
   // 解构赋值
   let [firstName, surname] = arr;
 
-  alert(firstName); // Ilya
-  alert(surname);  // Kantor
+  console.log(firstName); // Ilya
+  console.log(surname);  // Kantor
   ```
   通过 ... 将剩余元素收集起来
   ``` javascript
   let [name1, name2, ...rest] = ["Julius", "Caesar", "Consul", "of the Roman Republic"];
 
-  alert(name1); // Julius
-  alert(name2); // Caesar
+  console.log(name1); // Julius
+  console.log(name2); // Caesar
 
-  alert(rest[0]); // Consul
-  alert(rest[1]); // of the Roman Republic
-  alert(rest.length); // 2
+  console.log(rest[0]); // Consul
+  console.log(rest[1]); // of the Roman Republic
+  console.log(rest.length); // 2
   ```
 
   为值设置默认值
@@ -763,8 +763,8 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
   // 默认值
   let [name = "Guest", surname = "Anonymous"] = ["Julius"];
 
-  alert(name);    // Julius (来自数组的值)
-  alert(surname); // Anonymous (默认值被使用了)
+  console.log(name);    // Julius (来自数组的值)
+  console.log(surname); // Anonymous (默认值被使用了)
   ```
 
   通过向函数传递对象来作为函数参数,来实现使用默认值, 精简参数的效果
@@ -780,9 +780,9 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
     height: h = 200, // height 赋值给 h
     items: [item1, item2] // items 第一个元素赋值给 item1, 第二个元素赋值给 item2
   }) {
-    alert( `${title} ${w} ${h}` ); // My Menu 100 200
-    alert( item1 ); // Item1
-    alert( item2 ); // Item2
+    console.log( `${title} ${w} ${h}` ); // My Menu 100 200
+    console.log( item1 ); // Item1
+    console.log( item2 ); // Item2
   }
 
   showMenu(options);
@@ -793,7 +793,7 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
   new Date()
   ``` javascript
   let now = new Date();
-  alert( now ); // 显示当前的日期/时间
+  console.log( now ); // 显示当前的日期/时间
   ```
   #### 创建一个指定日期对象
   new Date(milliseconds)
@@ -817,7 +817,7 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
 
   // 如果你在时区 UTC-1，输出 60
   // 如果你在时区 UTC+3，输出 -180
-  alert( new Date().getTimezoneOffset() );
+  console.log( new Date().getTimezoneOffset() );
   #### 设置方法:
   * setFullYear(year [, month, date])
   * setMonth(month [, date])
@@ -857,7 +857,7 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
     return value;
   });
 
-  alert( meetup.date.getDate() ); // now works!
+  console.log( meetup.date.getDate() ); // now works!
   ```
 
   通过 ... 传入多个参数
@@ -866,13 +866,13 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
   下面的例子即把前两个参数定义为变量，同时把剩余的参数收集到 titles 数组中：
   ``` javascript
   function showName(firstName, lastName, ...titles) {
-    alert( firstName + ' ' + lastName ); // Julius Caesar
+    console.log( firstName + ' ' + lastName ); // Julius Caesar
 
     // titles 数组中包含了剩余的参数
     // 也就是有 titles = ["Consul", "Imperator"]
-    alert( titles[0] ); // Consul
-    alert( titles[1] ); // Imperator
-    alert( titles.length ); // 2
+    console.log( titles[0] ); // Consul
+    console.log( titles[1] ); // Imperator
+    console.log( titles.length ); // 2
   }
 
   showName("Julius", "Caesar", "Consul", "Imperator");
@@ -883,7 +883,7 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
   ``` javascript
   let arr = [3, 5, 1];
 
-  alert( Math.max(...arr) ); // 5（Spread 操作符把数组转为参数列表）
+  console.log( Math.max(...arr) ); // 5（Spread 操作符把数组转为参数列表）
   ```
   可用于 splice 第三个参数的传入
 
@@ -960,7 +960,7 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
     let i = 0;
     while (i < 10) {
       let shooter = function() { // shooter 函数
-        alert( i ); // 应该显示它自己的数字
+        console.log( i ); // 应该显示它自己的数字
       };
       shooters.push(shooter);
       i++;
@@ -983,7 +983,7 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
 
       for(let i = 0; i < 10; i++) {
         let shooter = function() { // shooter 函数
-          alert( i ); // 应该显示它自己的数字
+          console.log( i ); // 应该显示它自己的数字
         };
         shooters.push(shooter);
       }
@@ -1007,12 +1007,12 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
     var test = true; // 用 "var" 而不是 "let"
   }
 
-  alert(test); // true，变量在 if 结束后仍存在
+  console.log(test); // true，变量在 if 结束后仍存在
   for (var i = 0; i < 10; i++) {
     // ...
   }
 
-  alert(i); // 10, "i" 在循环结束后仍然可见，它会成为一个全局变量
+  console.log(i); // 10, "i" 在循环结束后仍然可见，它会成为一个全局变量
   ```
   如果 用 let 你是打死都不能访问的
   变量提升
@@ -1025,7 +1025,7 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
       var phrase;
     }
 
-    alert(phrase);
+    console.log(phrase);
   }
   ```
 
@@ -1041,19 +1041,19 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
   name
   ``` javascript
   function sayHi() {
-    alert("Hi");
+    console.log("Hi");
   }
 
-  alert(sayHi.name); // sayHi
+  console.log(sayHi.name); // sayHi
   ```
   length(不包含余参)
   ``` javascript
   function f1(a) {}
   function f2(a, b) {}
   function many(a, b, ...more) {}
-  alert(f1.length); // 1
-  alert(f2.length); // 2
-  alert(many.length); // 2
+  console.log(f1.length); // 1
+  console.log(f2.length); // 2
+  console.log(many.length); // 2
   ```
 
   自定义属性
@@ -1091,11 +1091,11 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
   ``` javascript
   let sum = new Function('a', 'b', 'return a + b');
 
-  alert( sum(1, 2) ); // 3
+  console.log( sum(1, 2) ); // 3
   function getFunc() {
     let value = "test";
 
-    let func = new Function('alert(value)');
+    let func = new Function('console.log(value)');
 
     return func;
   }
@@ -1115,7 +1115,7 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
   
   let worker = {
     slow(min, max) {
-      alert(`Called with ${min},${max}`);
+      console.log(`Called with ${min},${max}`);
       return min + max;
     }
   };
@@ -1141,8 +1141,8 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
 
   worker.slow = cachingDecorator(worker.slow, hash);
 
-  alert( worker.slow(3, 5) ); // works
-  alert( "Again " + worker.slow(3, 5) ); // same (cached)
+  console.log( worker.slow(3, 5) ); // works
+  console.log( "Again " + worker.slow(3, 5) ); // same (cached)
   ```
   ### 丢失 this 
   浏览器中的方法 setTimeout 有些特殊：它为函数的调用设定了 this=window
@@ -1152,7 +1152,7 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
   let user = {
     firstName: "John",
     sayHi() {
-      alert(`Hello, ${this.firstName}!`);
+      console.log(`Hello, ${this.firstName}!`);
     }
   };
 
@@ -1168,7 +1168,7 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
   };
 
   function func(phrase) {
-    alert(phrase + ', ' + this.firstName);
+    console.log(phrase + ', ' + this.firstName);
   }
 
   // 将 this 绑定给 user
@@ -1249,7 +1249,7 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
     isAdmin: true
   };
 
-  alert(admin.fullName); // John Smith (*)
+  console.log(admin.fullName); // John Smith (*)
 
   // setter triggers!
   admin.fullName = "Alice Cooper"; // (**)
@@ -1270,7 +1270,7 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
 
   let rabbit = new Rabbit("White Rabbit"); //  rabbit.__proto__ == animal
 
-  alert( rabbit.eats ); // true
+  console.log( rabbit.eats ); // true
   ```
   ### 对象
   #### 基本语法
@@ -1309,19 +1309,19 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
   console.log(typeof User); // function
   class User {
     constructor(name) { this.name = name; }
-    sayHi() { alert(this.name); }
+    sayHi() { console.log(this.name); }
   }
   // 类是函数
-  alert(typeof User); // function
+  console.log(typeof User); // function
 
   // ...或者，更确切地说是构造方法
-  alert(User === User.prototype.constructor); // true
+  console.log(User === User.prototype.constructor); // true
 
   // User.prototype 中的方法，比如：
-  alert(User.prototype.sayHi); // alert(this.name);
+  console.log(User.prototype.sayHi); // console.log(this.name);
 
   // 实际上在原型中有两个方法
-  alert(Object.getOwnPropertyNames(User.prototype)); // constructor, sayHi
+  console.log(Object.getOwnPropertyNames(User.prototype)); // constructor, sayHi
   ```
   #### 语法糖
   使用 构造函数重写 User 类
@@ -1335,7 +1335,7 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
 
   // 2. 向原型中添加方法
   User.prototype.sayHi = function() {
-    alert(this.name);
+    console.log(this.name);
   };
 
   // 使用方法：
@@ -1360,7 +1360,7 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
 
     set name(value) {
       if (value.length < 4) {
-        alert("Name is too short.");
+        console.log("Name is too short.");
         return;
       }
       this._name = value;
@@ -1369,7 +1369,7 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
   }
 
   let user = new User("John");
-  alert(user.name); // John
+  console.log(user.name); // John
 
   user = new User(""); // Name too short.
   ```
@@ -1382,18 +1382,18 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
     }
     run(speed) {
       this.speed += speed;
-      alert(`${this.name} runs with speed ${this.speed}.`);
+      console.log(`${this.name} runs with speed ${this.speed}.`);
     }
     stop() {
       this.speed = 0;
-      alert(`${this.name} stopped.`);
+      console.log(`${this.name} stopped.`);
     }
   }
 
   // 通过指定“extends Animal”让 Rabbit 继承自 Animal
   class Rabbit extends Animal {
     hide() {
-      alert(`${this.name} hides!`);
+      console.log(`${this.name} hides!`);
     }
   }
 
@@ -1422,19 +1422,19 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
 
     run(speed) {
       this.speed += speed;
-      alert(`${this.name} runs with speed ${this.speed}.`);
+      console.log(`${this.name} runs with speed ${this.speed}.`);
     }
 
     stop() {
       this.speed = 0;
-      alert(`${this.name} stopped.`);
+      console.log(`${this.name} stopped.`);
     }
 
   }
 
   class Rabbit extends Animal {
     hide() {
-      alert(`${this.name} hides!`);
+      console.log(`${this.name} hides!`);
     }
 
     stop() {
@@ -1474,8 +1474,8 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
 
   // 现在可以了
   let rabbit = new Rabbit("White Rabbit", 10);
-  alert(rabbit.name); // White Rabbit
-  alert(rabbit.earLength); // 10
+  console.log(rabbit.name); // White Rabbit
+  console.log(rabbit.earLength); // 10
   ```
 
   静态声明 前面加 static ,且继承什么都不用做
@@ -1526,7 +1526,7 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
   // 创建咖啡机
   let coffeeMachine = new CoffeeMachine(100);
 
-  alert(`Power is: ${coffeeMachine.power}W`); // 功率是：100W
+  console.log(`Power is: ${coffeeMachine.power}W`); // 功率是：100W
 
   coffeeMachine.power = 25; // Error (no setter)
   ```
@@ -1549,7 +1549,7 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
   let machine = new CoffeeMachine();
 
   machine.waterAmount = 100;
-  alert(machine.#waterAmount); // Error
+  console.log(machine.#waterAmount); // Error
   ```
   如果继承必须使用 get, set方法操作变量
   ### 继承内置类
@@ -1562,11 +1562,11 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
   }
 
   let arr = new PowerArray(1, 2, 5, 10, 50);
-  alert(arr.isEmpty()); // false
+  console.log(arr.isEmpty()); // false
 
   let filteredArr = arr.filter(item => item >= 10);
-  alert(filteredArr); // 10, 50
-  alert(filteredArr.isEmpty()); // false
+  console.log(filteredArr); // 10, 50
+  console.log(filteredArr.isEmpty()); // false
   ```
   如果希望返回常规的数组,则需要
   ``` javascript
@@ -1582,13 +1582,13 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
   }
 
   let arr = new PowerArray(1, 2, 5, 10, 50);
-  alert(arr.isEmpty()); // false
+  console.log(arr.isEmpty()); // false
 
   // filter 使用 arr.constructor[Symbol.species] 作为构造函数 (constructor) 创建新数组
   let filteredArr = arr.filter(item => item >= 10);
 
   // filteredArr 不是 PowerArray, 而是 Array
-  alert(filteredArr.isEmpty()); // Error: filteredArr.isEmpty is not a function
+  console.log(filteredArr.isEmpty()); // Error: filteredArr.isEmpty is not a function
   ```
   instanceof
   用法：
@@ -1604,10 +1604,10 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
   // mixin
   let sayHiMixin = {
     sayHi() {
-      alert(`Hello ${this.name}`);
+      console.log(`Hello ${this.name}`);
     },
     sayBye() {
-      alert(`Bye ${this.name}`);
+      console.log(`Bye ${this.name}`);
     }
   };
 
@@ -1701,7 +1701,7 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
     function(result) { /* handle a successful result */ },
     function(error) { /* handle an error */ }
   );
-  promise.catch(alert); // 失败后执行函数
+  promise.catch(console.log); // 失败后执行函数
   ```
   用 promise 重写 loadScript
   ``` javascript
@@ -1720,11 +1720,11 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
   let promise = loadScript("https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.2.0/lodash.js");
 
   promise.then(
-    script => alert(`${script.src} is loaded!`),
-    error => alert(`Error: ${error.message}`)
+    script => console.log(`${script.src} is loaded!`),
+    error => console.log(`Error: ${error.message}`)
   );
 
-  promise.then(script => alert('One more handler to do something else!'));
+  promise.then(script => console.log('One more handler to do something else!'));
   ```
   ### promise 链
   ``` javascript
@@ -1734,17 +1734,17 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
 
   }).then(function(result) { // (**)
 
-    alert(result); // 1
+    console.log(result); // 1
     return result * 2;
 
   }).then(function(result) { // (***)
 
-    alert(result); // 2
+    console.log(result); // 2
     return result * 2;
 
   }).then(function(result) {
 
-    alert(result); // 4
+    console.log(result); // 4
     return result * 2;
 
   });
@@ -1781,7 +1781,7 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
     new Promise(resolve => setTimeout(() => resolve(1), 3000)), // 1
     new Promise(resolve => setTimeout(() => resolve(2), 2000)), // 2
     new Promise(resolve => setTimeout(() => resolve(3), 1000))  // 3
-  ]).then(alert); // 1,2,3 当 promise 就绪：每一个 promise 即成为数组中的一员
+  ]).then(console.log); // 1,2,3 当 promise 就绪：每一个 promise 即成为数组中的一员
   ```
   #### Promise.allSettled
   等待所有的 promise 都被处理：即使其中一个 reject，它仍然会等待其他的 promise。处理完成后
@@ -1803,7 +1803,7 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
     return 1;
   }
 
-  f().then(alert); // 1
+  f().then(console.log); // 1
   ```
   在函数前面的「async」这个单词表达了一个简单的事情：即这个函数总是返回一个 promise。即使这个函数实际上会返回一个非 promise 的值，函数定义前加上了「async」关键字会指示 JavaScript 引擎自动将返回值包装在一个已决议（resolved）的 promise 内。
   ### Await 关键字
@@ -1817,7 +1817,7 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
 
     let result = await promise; // 等待直到 promise 决议 (*)
 
-    alert(result); // "done!"
+    console.log(result); // "done!"
   }
 
   f();
@@ -1863,7 +1863,7 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
 
   let one = generator.next();
 
-  alert(JSON.stringify(one)); 
+  console.log(JSON.stringify(one)); 
   // {value: 1, done: false}
   ```
   generator 函数通过 next() 执行到 yield ,再次 next() 执行到下一个 yield
@@ -1880,7 +1880,7 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
   let generator = generateSequence();
 
   for(let value of generator) {
-    alert(value); // 1, then 2
+    console.log(value); // 1, then 2
   }
   ```
   生成可迭代序列
@@ -1893,7 +1893,7 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
 
   let sequence = [...generateSequence(1,5)];
 
-  alert(sequence); // 1, 2, 3, 4, 5
+  console.log(sequence); // 1, 2, 3, 4, 5
   ```
   #### Generator 组合(composition)
   ``` javascript
@@ -1920,7 +1920,7 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
     str += String.fromCharCode(code);
   }
 
-  alert(str); // 0..9A..Za..z
+  console.log(str); // 0..9A..Za..z
   ```
   #### 'yield' 双向路径
   ``` javascript
@@ -1928,7 +1928,7 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
     // 向外部代码传递一个问题，然后等待答案
     let result = yield "2 + 2?"; // (*)
 
-    alert(result);
+    console.log(result);
   }
 
   let generator = gen();
@@ -1944,12 +1944,12 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
   ``` javascript
   // 📁 sayHi.js (导出模块)
   export function sayHi(user) {
-    alert(`Hello, ${user}!`);
+    console.log(`Hello, ${user}!`);
   }
   // 📁 main.js (导入模块)
   import {sayHi} from './sayHi.js';
 
-  alert(sayHi); // function...
+  console.log(sayHi); // function...
   sayHi('John'); // Hello, John!
   ```
   通过设置 <script> 标签的 type = module 来使该部分成为模块
@@ -2000,7 +2000,7 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
     default 别名
   ``` javascript
   function sayHi(user) {
-    alert(`Hello, ${user}!`);
+    console.log(`Hello, ${user}!`);
   }
 
   export {sayHi as default}; // 和我们在函数前添加“export default”一样
@@ -2057,8 +2057,8 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
 
   // 在字典中查找任意短语！
   // 最坏的情况也只是它们没有被翻译。
-  alert( dictionary['Hello'] ); // Hola
-  alert( dictionary['Welcome to Proxy']); // Welcome to Proxy
+  console.log( dictionary['Hello'] ); // Hola
+  console.log( dictionary['Welcome to Proxy']); // Welcome to Proxy
   ```
   set 实例 数字数组
   ``` javascript
@@ -2077,11 +2077,11 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
 
   numbers.push(1); // 添加成功
   numbers.push(2); // 添加成功
-  alert("Length is: " + numbers.length); // 2
+  console.log("Length is: " + numbers.length); // 2
 
   numbers.push("test"); // TypeError （proxy 的 `set` 操作返回 false）
 
-  alert("This line is never reached (error in the line above)");
+  console.log("This line is never reached (error in the line above)");
   ```
   如上所述，要保持不变式。
 
@@ -2097,9 +2097,9 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
   ``` javascript
   let double = mul.bind(null, 2);
 
-  alert( double(3) ); // = mul(2, 3) = 6
-  alert( double(4) ); // = mul(2, 4) = 8
-  alert( double(5) ); // = mul(2, 5) = 10
+  console.log( double(3) ); // = mul(2, 3) = 6
+  console.log( double(4) ); // = mul(2, 4) = 8
+  console.log( double(5) ); // = mul(2, 5) = 10
   ```
   ### 柯里化
   将一个调用形式为 f(a, b, c) 的函数转化为调用形式为 f(a)(b)(c) 的技术。
@@ -2115,7 +2115,7 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
   不可和其他数字对象混合;
   不能使用 + 转换
   其他与普通数字相同
-
+  # DOM, BOM
   ## DOM
   ### 初始DOM树
   DOM 分为四种
@@ -2147,13 +2147,13 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
   HTML is "dense" to evade extra "blank" text nodes.
 
   // <body> 的父节点是 <html>
-  alert( document.body.parentNode === document.documentElement ); // true
+  console.log( document.body.parentNode === document.documentElement ); // true
 
   // <head> 的下一个兄弟节点是  <body>
-  alert( document.head.nextSibling ); // HTMLBodyElement
+  console.log( document.head.nextSibling ); // HTMLBodyElement
 
   // <body> 的上一个兄弟节点是  <head>
-  alert( document.body.previousSibling ); // HTMLHeadElement
+  console.log( document.body.previousSibling ); // HTMLHeadElement
 </script></body></html>
   ```
   children —— 只获取类型为元素节点的子节点。
@@ -2184,7 +2184,7 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
 
   <script>
     // 获取第一行中第二个单元格的内容
-    alert( table.rows[0].cells[1].innerHTML ) // "two"
+    console.log( table.rows[0].cells[1].innerHTML ) // "two"
   </script>
 ```
   ### 搜索: getElement 和 querySelector
@@ -2197,12 +2197,12 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
     </div>
 
     <script>
-      alert(elem); // DOM-element with id="elem"
-      alert(window.elem); // accessing global variable like this also works
+      console.log(elem); // DOM-element with id="elem"
+      console.log(window.elem); // accessing global variable like this also works
 
       // 对于 elem-content 会稍微有些复杂
       // 因为里面有破折号，所以不是一个变量名
-      alert(window['elem-content']); // ...但可以使用方括号 [...]
+      console.log(window['elem-content']); // ...但可以使用方括号 [...]
     </script>
 ```
   #### document.getElementsByTagName('div') 获取所有的div 标签
@@ -2232,10 +2232,10 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
   <script>
     let chapter = document.querySelector('.chapter'); // LI
 
-    alert(chapter.closest('.book')); // UL
-    alert(chapter.closest('.contents')); // DIV
+    console.log(chapter.closest('.book')); // UL
+    console.log(chapter.closest('.contents')); // DIV
 
-    alert(chapter.closest('h1')); // null（因为 h1 不是祖先）
+    console.log(chapter.closest('h1')); // null（因为 h1 不是祖先）
   </script>
   ```
   #### Live 集合
@@ -2247,13 +2247,13 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
     <div>First div</div>
     <script>
       let divs = document.getElementsByTagName('div');
-      alert(divs.length); // 1
+      console.log(divs.length); // 1
     </script>
 
     <div>Second div</div>
 
     <script>
-      alert(divs.length); // 2
+      console.log(divs.length); // 2
     </script>
   ```
   相反，querySelectorAll 会返回一个static集合。就像一个固定的元素数字。
@@ -2264,13 +2264,13 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
 
   <script>
     let divs = document.querySelectorAll('div');
-    alert(divs.length); // 1
+    console.log(divs.length); // 1
   </script>
 
   <div>Second div</div>
 
   <script>
-    alert(divs.length); // 1
+    console.log(divs.length); // 1
   </script>
   ```
   nodeType” 属性
@@ -2287,13 +2287,13 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
     let elem = document.body;
 
     // 让我们检查一下它是什么？
-    alert(elem.nodeType); // 1 => element
+    console.log(elem.nodeType); // 1 => element
 
     // 第一个子节点是
-    alert(elem.firstChild.nodeType); // 3 => text
+    console.log(elem.firstChild.nodeType); // 3 => text
 
     // 对于文档对象，类型是 9
-    alert( document.nodeType ); // 9
+    console.log( document.nodeType ); // 9
     </script>
   </body>
   ```
@@ -2302,8 +2302,8 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
 
   例如：
   ``` javascript
-  alert( document.body.nodeName ); // BODY
-  alert( document.body.tagName ); // BODY
+  console.log( document.body.nodeName ); // BODY
+  console.log( document.body.tagName ); // BODY
   ```
   #### innerHTML: the contents
   innerHTML 属性允许将元素中的 HTML 作为字符串来获取。
@@ -2319,7 +2319,7 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
   <div id="elem">Hello <b>World</b></div>
 
   <script>
-    alert(elem.outerHTML); // <div id="elem">Hello <b>World</b></div>
+    console.log(elem.outerHTML); // <div id="elem">Hello <b>World</b></div>
   </script>
   ```
   js 代码从上往下,执行 他会检测前面的html元素,而不会看后面的
@@ -2367,14 +2367,14 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
     <div id="elem" about="Elephant"></div>
 
     <script>
-      alert( elem.getAttribute('About') ); // (1) 'Elephant', reading
+      console.log( elem.getAttribute('About') ); // (1) 'Elephant', reading
 
       elem.setAttribute('Test', 123); // (2), writing
 
-      alert( elem.outerHTML ); // (3), see it's there
+      console.log( elem.outerHTML ); // (3), see it's there
 
       for (let attr of elem.attributes) { // (4) list all
-        alert( `${attr.name} = ${attr.value}` );
+        console.log( `${attr.name} = ${attr.value}` );
       }
     </script>
   </body>
@@ -2387,11 +2387,11 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
 
     // 特性 => 属性
     input.setAttribute('id', 'id');
-    alert(input.id); // id（更新了）
+    console.log(input.id); // id（更新了）
 
     // 属性 => 特性
     input.id = 'newId';
-    alert(input.getAttribute('id')); // newId（更新了）
+    console.log(input.getAttribute('id')); // newId（更新了）
   </script>
   ```
   这里有一些特殊情况下的例子，input.value 只能从特性同步到属性，反过来则不行：
@@ -2402,11 +2402,11 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
 
     // 特性 => 属性
     input.setAttribute('value', 'text');
-    alert(input.value); // text
+    console.log(input.value); // text
 
     // 这操作无效 属性 => 特性
     input.value = 'newValue';
-    alert(input.getAttribute('value')); // text（没有更新！）
+    console.log(input.getAttribute('value')); // text（没有更新！）
   </script>
   ```
   DOM 并不总是字符串。例如 input.checked 属性（多选框）是一个布尔类型的值。
@@ -2417,7 +2417,7 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
   ``` javascript
   <body data-about="Elephants">
   <script>
-    alert(document.body.dataset.about); // Elephants
+    console.log(document.body.dataset.about); // Elephants
   </script>
   ```
   ### 修改文档内容
@@ -2435,7 +2435,7 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
   * 创建div的各种属性
   ``` javascript
   let div = document.createElement('div');
-  div.className = "alert alert-success";
+  div.className = "console.log console.log-success";
   div.innerHTML = "<strong>Hi there!</strong> You've read an important message.";
   ```
   #### 插值方法
@@ -2536,7 +2536,7 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
   一个复制信息的例子：
   ``` javascript
   <style>
-  .alert {
+  .console.log {
     padding: 15px;
     border: 1px solid #d6e9c6;
     border-radius: 4px;
@@ -2545,7 +2545,7 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
   }
   </style>
 
-  <div class="alert" id="div">
+  <div class="console.log" id="div">
     <strong>Hi there!</strong> You've read an important message.
   </div>
 
@@ -2633,7 +2633,7 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
   完毕,暂时找到的最佳方法,肯定不止...
   ### 样式和类
   查看类名:
-  alert(document.body.className);
+  console.log(document.body.className);
   修改样式的方法:
   1. elem.style.left = left;
     修改类的方法:
@@ -2656,8 +2656,8 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
 
       // 现在我们可以读出页边距和颜色了
 
-      alert( computedStyle.marginTop ); // 5px
-      alert( computedStyle.color ); // rgb(255, 0, 0)
+      console.log( computedStyle.marginTop ); // 5px
+      console.log( computedStyle.color ); // rgb(255, 0, 0)
     </script>
   </body>
   ```
@@ -2693,7 +2693,7 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
     document.body.offsetHeight, document.documentElement.offsetHeight,
     document.body.clientHeight, document.documentElement.clientHeight
   );
-  alert('Full document height, with scrolled out part: ' + scrollHeight);
+  console.log('Full document height, with scrolled out part: ' + scrollHeight);
   ```
   ### 滚动
   #### 读取滚动
@@ -2739,7 +2739,7 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
   let elem = document.elementFromPoint(centerX, centerY);
 
   elem.style.background = "red";
-  alert(elem.tagName);
+  console.log(elem.tagName);
   相对窗口使用 fixed
   2. 相对于文档的坐标
   pageY = clientY + 文档垂直部分滚动的高度。
@@ -2764,8 +2764,8 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
   <script>
     elem.onclick = function(event) {
       // 显示事件类型、元素和单击的坐标。
-      alert(event.type + " at " + event.currentTarget);
-      alert("Coordinates: " + event.clientX + ":" + event.clientY);
+      console.log(event.type + " at " + event.currentTarget);
+      console.log("Coordinates: " + event.clientX + ":" + event.clientY);
     };
   </script>
   ```
@@ -2798,14 +2798,14 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
 
   #### HTML属性
   ``` javascript
-  <input value="Click me" onclick="alert('Click!')" type="button">
+  <input value="Click me" onclick="console.log('Click!')" type="button">
   ```
   #### DOM属性(推荐这种)
   ``` javascript
   <input id="elem" type="button" value="Click me">
   <script>// 如果要输入多个函数,用外部的一个function包裹他们就行了
     elem.onclick = function() {
-      alert('Thank you');
+      console.log('Thank you');
     };
   </script>
   ```
@@ -2825,14 +2825,14 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
 
   <script>
     function handler1() {
-      alert('Thanks!');
+      console.log('Thanks!');
     };
 
     function handler2() {
-      alert('Thanks again!');
+      console.log('Thanks again!');
     }
 
-    elem.onclick = () => alert("Hello");
+    elem.onclick = () => console.log("Hello");
     elem.addEventListener("click", handler1); // Thanks!
     elem.addEventListener("click", handler2); // Thanks again!
   </script>
@@ -2855,11 +2855,11 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
   
   <script>
     elem.ontransitionend = function() {
-      alert("DOM property"); // doesn't work
+      console.log("DOM property"); // doesn't work
     };
 
     elem.addEventListener("transitionend", function() {
-      alert("addEventListener"); // 动画完成时显示
+      console.log("addEventListener"); // 动画完成时显示
     });
   </script>
   ```
@@ -2934,15 +2934,15 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
       }
 
       save() {
-        alert('saving');
+        console.log('saving');
       }
 
       load() {
-        alert('loading');
+        console.log('loading');
       }
 
       search() {
-        alert('searching');
+        console.log('searching');
       }
 
       onClick(event) {
@@ -2994,7 +2994,7 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
   cancelable: true/false —— 如果 true，那么“默认动作”就会被阻止。之后我们会看到对于自定义事件，这些意味着什么。
   默认情况下，它们都是 false：{bubbles: false, cancelable: false}。
   ``` javascript
-  <button id="elem" onclick="alert('Click!');">Autoclick</button>
+  <button id="elem" onclick="console.log('Click!');">Autoclick</button>
   <script>
     let event = new Event("click");
     elem.dispatchEvent(event);
@@ -3010,7 +3010,7 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
   <script>
     // catch on document...
     document.addEventListener("hello", function(event) { // (1)
-      alert("Hello from " + event.target.tagName); // Hello from H1
+      console.log("Hello from " + event.target.tagName); // Hello from H1
     });
 
     // ...dispatch on elem!
@@ -3038,7 +3038,7 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
         cancelable: true // without that flag preventDefault doesn't work
       });
       if (!rabbit.dispatchEvent(event)) {
-        alert('the action was prevented by a handler');
+        console.log('the action was prevented by a handler');
       } else {
         rabbit.hidden = true;
       }
@@ -3135,7 +3135,7 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
     </style>
 
     Before...
-    <b ondblclick="alert('Test')">
+    <b ondblclick="console.log('Test')">
       Unselectable
     </b>
     ...After
@@ -3143,7 +3143,7 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
   好的方法为阻止 mousedown
   ``` javascript
     Before...
-  <b ondblclick="alert('Click!')" onmousedown="return false">
+  <b ondblclick="console.log('Click!')" onmousedown="return false">
     Double-click me
   </b>
    ...After
@@ -3162,7 +3162,7 @@ previousValue 为当前遍历前一个值, 若在第一个元素,则等于 initi
   ```
   #### 防止复制(这个可以)
   ``` javascript
-  <div oncopy="alert('Copying forbidden!');return false">
+  <div oncopy="console.log('Copying forbidden!');return false">
   Dear user,
   The copying is forbidden for you.
   If you know JS or HTML, then you can get everything from the page source though.
@@ -3283,7 +3283,7 @@ Shift	             Shift	             ShiftRight 或 ShiftLeft
 ``` javascript
 document.addEventListener('keydown', function(event) {
   if (event.code == 'KeyZ' && (event.ctrlKey || event.metaKey)) {
-    alert('Undo!')
+    console.log('Undo!')
   }
 });
 ```
@@ -3338,7 +3338,7 @@ document.forms[0] - 文档中的第一个表单
   // 获取表单中的元素
   let elem = form.elements.one; // <input name="one"> 元素
 
-  alert(elem.value); // 1
+  console.log(elem.value); // 1
 </script>
 ```
 
@@ -3408,7 +3408,7 @@ select.selectedIndex —— 所选选项的索引。
     .filter(option => option.selected)
     .map(option => option.value);
 
-  alert(selected); // blues，rock
+  console.log(selected); // blues，rock
 </script>
 ##### 新的选项
 在选项元素的规范中，有一个很不错的简短语法用来创建 <option> 元素：
@@ -3526,7 +3526,7 @@ change 事件是在元素变化结束之后触发的。
 例如，当我们在下面的文本区域中输入的时候，change 事件不会被触发。但是当我们将焦点移到别处时，例如点击按钮，就会触发 change 事件：
 
 ``` javascript
-<input type="text" onchange="alert(this.value)">
+<input type="text" onchange="console.log(this.value)">
 <input type="button" value="Button">
 ```
 对于其它元素：select，input type=checkbox/radio，change 事件会在选项变化后立即触发。
@@ -3554,7 +3554,7 @@ change 事件是在元素变化结束之后触发的。
 <input type="text" id="input">
 <script>
   input.oncut = input.oncopy = input.onpaste = function(event) {
-    alert(event.type + ' - ' + event.clipboardData.getData('text/plain'));
+    console.log(event.type + ' - ' + event.clipboardData.getData('text/plain'));
     return false;
   };
 </script>
@@ -3587,4 +3587,737 @@ HTML 页面的生命周期有三个重要事件：
 * load 事件 —— 外部资源加载完成后，我们就可以应用样式表，获取图像大小等。
 beforeunload 事件 —— 用户即将离开：我们可以检查用户是否保存了修改，并询问他是否真的要离开。
 * unload 事件 —— 用户几乎已经离开了，但是我们仍然可以启动一些操作，比如发送统计数据。
+  当用户最终离开时，window 上的 unload 事件会被触发。在处理器中，我们只能做一些不会涉及到延迟或询问用户的简单事情。正是由于这个限制，它很少被使用。我们可以用 navigator.sendBeacon 来发送网络请求。
+  document.readyState 是文档的当前状态，可以在 readystatechange 事件中跟踪状态变更：
+  loading —— 文档正在被加载。
+  interactive —— 文档被解析，大概是与 DOMContentLoaded 同时发生，而不是在它之前发生。
+  complete —— 文档和资源被加载，大概是与 window.onload 同时发生，而不是在它之前发生。
+  ### script async, defer
+  #### defer
+  defer 属性告诉浏览器它应该继续处理页面，并在“后台”下载脚本，然后等页面处理完成后才开始执行此脚本。
+  async
+  #### async 属性意味着脚本是完全独立的：
 
+  页面不会等待异步脚本，它会继续处理页面并显示内容。
+  DOMContentLoaded 和 async 脚本不会彼此等待：
+  DOMContentLoaded 可能发生在异步脚本之前（此时异步脚本在页面加载完成后才加载完成）
+  DOMContentLoaded 也可能发生在异步脚本之后（此时异步脚本可能很短或者是从 HTTP 缓存中加载的）
+  其他脚本不会等待 async 脚本加载完成，同样 async 脚本也不会等待其他脚本。
+  因此，如果我们有几个 async 脚本，它们可能按任意次序执行，总之是先加载完成的就先运行：
+  #### 动态脚本（Dynamic scripts）
+  我们也可以使用 JavaScript 动态地添加脚本：
+  ``` javascript
+  let script = document.createElement('script');
+  script.src = "/article/script-async-defer/long.js";
+  document.body.append(script); // (*)
+  ```
+  #### onload, onerror
+  ``` javascript
+  ```
+
+  ### 窗口
+
+  #### window.open()
+  打开窗口,有三个参数
+  url
+  name 窗口的名字
+  settingStr 窗口设置的字符串,例如
+  'width=800,height=600,left=calc(50vw - 400px),top:calc(50vh - 300px)'
+  #### window.close() 关闭窗口
+
+  ### 同源
+  如果两个 URL 具有相同的协议，域名和端口，则称它们是"同源"的。
+
+  以下的几个 URL 都是同源的：
+
+  http://site.com
+
+  http://site.com/
+
+  http://site.com/my/page.html
+
+  但是下面几个不是：
+
+  http://www.site.com (www. 域名与其他不同)
+
+  http://site.org (.org 域名与其他不同)
+
+  https://site.com (协议与其他不同: https)
+
+  http://site.com:8080 (端口与其他不同：8080)
+
+  ### iframe
+
+  iframe.contentWindow 是对 <iframe> 里 window 的引用。
+
+  iframe.contentDocument 是对 <iframe> 里的 document 对象的引用。
+
+  获取 localstrage 
+  JSON.parse(getItem('key'));
+  setItem('key',JSON.stringify('value'))
+  strage 事件 在 localstrage 储存的值
+
+  ### css 动画
+
+  CSS 提供了五个属性来描述一个过渡：
+
+  transition-property
+  transition-duration
+  transition-timing-function
+  transition-delay
+
+  贝塞尔曲线
+  cubic-bezier(0, 0, 1, 1)
+  简写
+
+  ease (0.25, 0.1, 0.25, 1.0)
+  ease-in (0.42, 0, 1.0, 1.0)
+  ease-out (0.42, 0, 1.0, 1.0)
+  ease-in-out (0.42, 0, 0.58, 1.0)
+  
+  阶跃函数（Steps）
+  ``` javascript
+  #stripe.animate  {
+    transform: translate(-90%);
+    transition: transform 9s steps(9, start);
+  }
+  ```
+  #### step(9, start)
+
+  第二个参数控制元素变化的时间, start 就是在这段时间开头开始动画, end 就是再这段时间结尾开始动画
+
+  #### transitionend 事件
+  CSS 动画完成后，会触发 transitionend 事件。
+
+  ### js 动画
+
+  #### requestAnimationFrame 函数
+  ``` javascript
+  function animate({timing, draw, duration}) {
+    let start = performance.now();
+    requestAnimationFrame(function animate(time) {
+      // timeFraction 从 0 增加到 1
+      let timeFraction = (time - start) / duration;
+      if (timeFraction > 1) timeFraction = 1;
+      // 计算当前动画状态
+      let progress = timing(timeFraction);
+      draw(progress); // 绘制
+      if (timeFraction < 1) {
+        requestAnimationFrame(animate);
+      }
+    });
+  }
+  ```
+  #### timing(timeFraction)
+  时序函数，类似 CSS 属性 transition-timing-function，传入一个已过去的时间与总时间之比的小数（0 代表开始，1 代表结束），返回动画完成度（类似 Bezier 曲线中的 y）。
+  #### draw(progress)
+  获取动画完成状态并绘制的函数。值 progress = 0 表示开始动画状态，progress = 1 表示结束状态。
+
+  这是实际绘制动画的函数。
+
+  ##### 时序函数
+  上文我们看到了最简单的线性时序函数。
+
+  让我们看看更多。我们将尝试使用不同时序函数的移动动画来查看它们的工作原理。
+
+  * n 次幂
+  如果我们想加速动画，我们可以让 progress 为 n 次幂。
+
+  例如，抛物线：
+  ``` javascript
+  function quad(timeFraction) {
+    return Math.pow(timeFraction, 2)
+  }
+  ```
+
+  * 圆弧
+
+  函数：
+
+  function circ(timeFraction) {
+    return 1 - Math.sin(Math.acos(timeFraction));
+  }
+
+  * 反弹：弓箭射击
+
+  此函数执行“弓箭射击”。首先，我们“拉弓弦”，然后“射击”。
+
+  与以前的函数不同，它取决于附加参数 x，即“弹性系数”。“拉弓弦”的距离由它定义。
+
+  代码如下：
+
+  function back(x, timeFraction) {
+    return Math.pow(timeFraction, 2) * ((x + 1) * timeFraction - x);
+  }
+
+  * 弹跳
+  想象一下，我们正在抛球。球落下之后，弹跳几次然后停下来。
+
+  bounce 函数也是如此，但顺序相反：“bouncing”立即启动。它使用了几个特殊的系数：
+  ``` javascript
+  function bounce(timeFraction) {
+    for (let a = 0, b = 1, result; 1; a += b, b /= 2) {
+      if (timeFraction >= (7 - 4 * a) / 11) {
+        return -Math.pow((11 - 6 * a - 11 * timeFraction) / 4, 2) + Math.pow(b, 2)
+      }
+    }
+  }
+  ```
+  * 伸缩动画
+  另一个“伸缩”函数接受附加参数 x 作为“初始范围”。
+  ``` javascript
+  function elastic(x, timeFraction) {
+    return Math.pow(2, 10 * (timeFraction - 1)) * Math.cos(20 * Math.PI * x / 3 * timeFraction)
+  }
+  ```
+
+  #### 逆转：ease*
+  我们有一组时序函数。它们的直接应用称为“easeIn”。
+
+  有时我们需要以相反的顺序显示动画。这是通过“easeOut”变换完成的。
+
+  easeOut
+  在“easeOut”模式中，我们将 timing 函数封装到 timingEaseOut中：
+  ``` javascript
+  timingEaseOut(timeFraction) = 1 - timing(1 - timeFraction);
+  // 接受时序函数，返回变换后的变体
+  function makeEaseOut(timing) {
+    return function(timeFraction) {
+      return 1 - timing(1 - timeFraction);
+    }
+  }
+  ```
+  #### easeInOut
+  * 我们还可以在动画的开头和结尾都显示效果。该变换称为“easeInOut”。
+
+  * 给定时序函数，我们按下面的方式计算动画状态：
+  ``` javascript
+  if (timeFraction <= 0.5) { // 动画前半部分
+    return timing(2 * timeFraction) / 2;
+  } else { // 动画后半部分
+    return (2 - timing(2 * (1 - timeFraction))) / 2;
+  }
+  封装器代码：
+
+  function makeEaseInOut(timing) {
+    return function(timeFraction) {
+      if (timeFraction < .5)
+        return timing(2 * timeFraction) / 2;
+      else
+        return (2 - timing(2 * (1 - timeFraction))) / 2;
+    }
+  }
+
+  bounceEaseInOut = makeEaseInOut(bounce);
+  ```
+
+  ## 正则表达式
+  ### 模式（Patterns）和修饰符（flags）
+
+  #### 定义:
+
+  regexp = new RegExp('pattern', 'flags);
+  ``` javascript
+  regexp = /pattern/ // 没有修饰符
+  regexp = /pattern/gmi // 伴随修饰符 g ,m , i
+  ```
+  #### 搜索
+
+  ``` javascript
+  let str = "I love JavaScript!"; // 将在这里搜索
+
+  let regexp = /love/;
+  console.log( str.search(regexp) ); // 2
+  ```
+
+  new RegExp 允许从字符串中动态地构造模式
+
+  #### 修饰符
+  正则表达式的修饰符可能会影响搜索结果。
+
+  在 JavaScript 中，有 5 个修饰符：
+
+  i
+  使用此修饰符后，搜索时不区分大小写: A 和 a 没有区别（具体看下面的例子）。
+  g
+  使用此修饰符后，搜索时会查找所有的匹配项，而不只是第一个（在下一章会讲到）。
+  ``` javascript
+  let str = "+7(903)-123-45-67";
+
+  let regexp = /\d/g;
+
+  console.log( str.match(regexp) ); // array of matches: 7,9,0,3,1,2,3,4,5,6,7
+  ```
+// let's make the digits-only phone number of them:
+console.log( str.match(regexp).join('') ); // 79035419441
+  m
+  多行模式（详见章节 文章 "regexp-multiline" 未找到）。
+  u
+  开启完整的 unicode 支持。该修饰符能够修正对于代理对的处理。更详细的内容见章节 Unicode：修饰符 “u” 和 class \p{...}。
+  y
+  粘滞模式（详见 下一章节）
+
+  #### 简写
+
+  * \d 数字(0-9) 等于[0-9]
+  * \s 空白字符包括, \t (制表符), \n (换行符), \v, \f, \r
+  * \w 单词 包括: 拉丁字母, 数字, 下划线 _ 
+
+  相反的写法
+  * \D
+  * \S
+  * \W
+  大写即可,即上述小写相反的部分
+
+  . 代表是所有的对象 (包括空白符号, 不包括空和回车)
+  可以使用[/s/S]来表示真正的所有对象
+
+  以下是主要的字符类别和它们对应的子类别：
+
+  * 字母（Letter） L:
+    * 小写（lowercase） Ll
+    * 修饰（modifier） Lm,
+    * 首字母大写（titlecase） Lt,
+    * 大写（uppercase） Lu,
+    * 其它（other） Lo。
+  * 数字（Number） N:
+    * 十进制数字（decimal digit） Nd,
+    * 字母数字（letter number） Nl,
+    * 其它（other） No。
+  * 标点符号（Punctuation） P:
+    * 链接符（connector） Pc,
+    * 横杠（dash） Pd,
+    * 起始引用号（initial quote） Pi,
+    * 结束引用号（final quote） Pf,
+    * 开（open） Ps,
+    * 闭（close） Pe,
+    * 其它（other） Po。
+    * 标记（Mark） M (accents etc):
+    * 间隔合并（spacing combining） Mc,
+    * 封闭（enclosing） Me,
+    * 非间隔（non-spacing） Mn。
+    * 符号（Symbol） S:
+    * 货币（currency） Sc,
+    * 修饰（modifier） Sk,
+    * 数学（math） Sm,
+    * 其它（other） So。
+    * 分隔符（Separator） Z:
+    * 行（line） Zl,
+    * 段落（paragraph） Zp,
+    * 空格（space） Zs。
+    * 其它（Other） C:
+    * 控制符（control） Cc,
+    * 格式（format） Cf,
+    * 未分配（not assigned） Cn,
+    * 私有（private use） Co,
+    * 代理伪字符（surrogate） Cs。
+
+  我们可以查找具有某种属性的字符，写作 \p{…}。为了顺利使用 \p{…}，一个正则表达式必须使用修饰符 u。
+  ``` javascript
+  let str = "A ბ ㄱ";
+
+  console.log( str.match(/\p{L}/gu) ); // A,ბ,ㄱ
+  console.log( str.match(/\p{L}/g) ); // null（没有匹配的文本，因为没有修饰符“u”）
+  ```
+
+  ### 开始和结束符 ^, $
+
+  多行模式通过 ^$ 获取每行末尾的字符
+
+  ### 词边界：\b
+  词边界 \b 是一种检查，就像 ^ 和 $ 一样。
+  有三种不同的位置可作为词边界：
+
+  在字符串开头，如果第一个字符是单词字符 \w。
+  在字符串中的两个字符之间，其中一个是单词字符 \w，另一个不是。
+  在字符串末尾，如果最后一个字符是单词字符 \w。
+  ### 转义,前面加斜杠
+
+  ### 集合
+  在方括号 […] 中的几个字符或者字符类意味着“搜索给定的字符中的任意一个”。
+
+  #### 集合
+  比如说，[eao] 意味着查找在 3 个字符 'a'、'e' 或者 `‘o’ 中的任意一个。
+
+  这被叫做一个集合。集合可以在正则表达式中和其它常规字符一起使用。
+  #### 范围
+  方括号也可以包含字符范围。
+
+  比如说，[a-z] 会匹配从 a 到 z 范围内的字母，[0-5] 表示从 0 到 5 的数字。
+  \d – is the same as [0-9],
+  \w – is the same as [a-zA-Z0-9_],
+  \s – is the same as [\t\n\v\f\r ], plus few other rare unicode space characters.
+
+  #### 在 […] 中不转义
+  在方括号表示中，绝大多数特殊字符可以在不转义的情况下使用：
+
+  表示一个点符号 '.'。
+  表示一个加号 '+'。
+  表示一个括号 '( )'。
+  在开头或者结尾表示一个破折号（在这些位置该符号表示的就不是一个范围） `pattern:’-’。
+  在不是开头的位置表示一个插入符号（在开头位置该符号表示的是排除）'^'。
+  表示一个开口的方括号符号 '['。
+
+  ### 数量 {n}
+
+  #### 确切的位数 {5}
+  ``` javascript
+
+  接下来的例子将会查找一个五位数的数字：
+
+  console.log( "I'm 12345 years old".match(/\d{5}/) ); //  "12345"
+  ```
+  #### 某个范围的位数：{3,5}
+  ``` javascript
+  我们可以将限制范围的数字放入括号中，来查找位数为 3 至 5 位的数字：\d{3,5}
+
+  console.log( "I'm not 12, but 1234 years old".match(/\d{3,5}/) ); // "1234"
+  ```
+
+  缩写
+  大多数常用的量词都可以有缩写：
+
+  + 相当于 {1,}
+
+  例如，\d+ 用来查找所有数字：
+  ``` javascript
+  let str = "+7(903)-123-45-67";
+
+  console.log( str.match(/\d+/g) ); // 7,903,123,45,67
+  ```
+
+  ? 相当于 {0,1}
+
+  代表“零个或一个”，相当于 {0,1}。换句话说，它使得符号变得可选。
+
+  例如，模式 ou?r 查找 o，后跟零个或一个 u，然后是 r。
+
+  所以他能够在 color 中找到 or，以及在 colour 中找到 our：
+  ``` javascript
+  let str = "Should I write color or colour?";
+
+  console.log( str.match(/colou?r/g) ); // color, colour
+  ```
+  * {0,}
+  代表着“零个或多个”，相当于 {0,}。也就是说，这个字符可以多次出现或不出现。
+
+  接下来的例子将要寻找一个后跟任意数量的 0 的数字：
+  ``` javascript
+  console.log( "100 10 1".match(/\d0*/g) ); // 100, 10, 1
+  ```
+
+  ### 贪婪量词
+  正则表达式默认 贪婪模式
+  * 正则表达式看上去可能是这样的：/".+"/g。这个表达式的意思是：我们要查找这样一个句子，一个引号后跟一个或多个字符，然后以另一个引号结尾。
+
+  …但如果我们试着在一个如此简单的例子中去应用它…
+  ``` javascript
+  let reg = /".+"/g;
+
+  let str = 'a "witch" and her "broom" is one';
+
+  console.log( str.match(reg) ); // "witch" and her "broom"
+  ```
+  …我们会发现它的运行结果与预期不同！
+
+  它直接找到了一个匹配结果："witch" and her "broom"，而不是找到两个匹配结果 "witch" 和 "broom"。
+
+  这可被称为“贪婪是万恶之源”。
+
+  #### 懒惰模式
+  懒惰模式中的量词与贪婪模式中的是相反的。它想要“重复最少次数”。
+
+  我们能够通过在量词之后添加一个问号 '?' 来启用它，所以匹配模式变为 *? 或 +?，甚至将 '?' 变为 ??。
+
+  这么说吧：通常，一个问号 ? 就是一个它本身的量词（0 或 1），但如果添加另一个量词（甚至可以是它自己），就会有不同的意思 —— 它将匹配的模式从贪婪转为懒惰。
+
+  正则表达式 /".+?"/g 正如预期工作：它找到了 "witch" 和 "broom"：
+  ### 替代方法
+
+  在正则表达式中，通常有多种方法来达到某个相同目的。
+
+  在用例中，我们能够在不启用懒惰模式的情况下用 "[^"]+" 找到带引号的字符串：
+  ``` javascript
+  let reg = /"[^"]+"/g;
+
+  let str = 'a "witch" and her "broom" is one';
+
+  console.log( str.match(reg) ); // witch, broom
+  ```
+
+  捕捉组
+
+  例如: gogogo
+  ``` javascript
+  console.log( 'Gogogo now!'.match(/(go)+/i) ); // "Gogogo"
+  ```
+
+  match 方法:
+  如果正则表达式,有括号,则
+
+  match 方法 返回一个数组, (注意使用 g 修饰符,将无法返回数组,只会返回匹配的字符串)
+
+  [0] 代表匹配的字符串
+  [1] 代表第一个括号里的内容
+  [2] 代表第二个括号里的内容
+
+  matchAll 方法, 使用 g 修饰符, 按上面的操作全局匹配,返回一个可迭代对象
+
+  ``` javascript
+  let results = '<h1> <h2>'.matchAll(/<(.*?)>/gi);
+
+  let [tag1, tag2] = results;
+
+  console.log( tag1[0] ); // <h1>
+  console.log( tag1[1] ); // h1
+  console.log( tag1.index ); // 0
+  console.log( tag1.input ); // <h1> <h2>
+  ```
+
+  捕获替代, 如果我们需要括号里面捕获的内容, 则使用 $n 
+  (n 为序号)
+
+  ``` javascript
+  let str = "John Bull";
+  let regexp = /(\w+) (\w+)/;
+
+  console.log( str.replace(regexp, '$2, $1') ); // Bull, John
+  ```
+
+  可以使用 $<name> 来为捕获 添加名字(前面要写 ? 号)
+  ``` javascript
+  let regexp = /(?<year>[0-9]{4})-(?<month>[0-9]{2})-(?<day>[0-9]{2})/g;
+
+  let str = "2019-10-30, 2020-01-01";
+
+  console.log( str.replace(regexp, '$<day>.$<month>.$<year>') );
+  // 30.10.2019, 01.01.2020
+  ```
+
+  使用 ?: 匹配括号里的内容,但是并不放在数组里
+  ``` javascript
+  let str = "Gogogo John!";
+
+  // ?: exludes 'go' from capturing
+  let regexp = /(?:go)+ (\w+)/i;
+
+  let result = str.match(regexp);
+
+  console.log( result[0] ); // Gogogo John (full match)
+  console.log( result[1] ); // John
+  console.log( result.length ); // 2 (no more items in the array)
+  ```
+
+  在正则表达式中使用捕获
+
+  例子: 
+  ``` javascript
+  let str = `He said: "She's the one!".`;
+
+  let regexp = /['"](.*?)['"]/g;
+
+  // The result is not what we'd like to have
+  console.log( str.match(regexp) ); // "She'
+  ```
+  ``` javascript
+  let str = `He said: "She's the one!".`;
+
+  let regexp = /(['"])(.*?)\1/g;
+
+  console.log( str.match(regexp) ); // "She's the one!"
+  ```
+
+  给引用加名字
+
+  \k<name>
+
+  ``` javascript
+  let str = `He said: "She's the one!".`;
+
+  let regexp = /(?<quote>['"])(.*?)\k<quote>/g;
+
+  console.log( str.match(regexp) ); // "She's the one!"
+  ```
+
+  ### 选择 OR |
+  通常用括号括住要选择的部分: before(XXX|YYY)after
+
+  时间的正则表达式:
+
+  小时和分钟: ([01]/d|2[0-4]): [0-5]/d
+
+  ### 前瞻断言与后瞻断言
+  #### 前瞻断言
+  * 前瞻肯定断言 x(?=y) 匹配后面有 y 的 x
+  ``` javascript
+  let str = "1 turkey costs 30€";
+
+  console.log( str.match(/\d+(?=€)/) ); // 30 （正确地跳过了单个的数字 1）
+  ```
+  * 前瞻否定断言x(?!y) 匹配后面没有 y 的 x
+  #### 后瞻断言
+  后瞻肯定断言：(?<=y)x, 匹配 x, 仅在前面是 y 的情况。
+  后瞻否定断言：(?<!y)x, 匹配 x, 仅在前面不是 y 的情况。
+  
+  * 一般来说，环视断言括号中（前瞻和后瞻的通用名称）的内容不会成为匹配到的一部分结果。
+
+  例如：在模式 \d+(?!€) 中，€ 符号就不会出现在匹配结果中。
+
+  但是如果我们想要捕捉整个环视表达式或其中的一部分，那也是有可能的。只需要将其包裹在另加的括号中。
+
+  例如，这里货币符号 (€|kr) 和金额一起被捕获了：
+  ``` javascript
+  let str = "1 turkey costs 30€";
+  let reg = /\d+(?=(€|kr))/; // €|kr 两边有额外的括号
+
+  console.log( str.match(reg) ); // 30, €
+  ```
+
+  后瞻断言于此相同
+
+  ### stick flag 'y' 用于 在确定位置检查字符串
+  ``` javascript
+  let str = 'let varName = "value"';
+
+  let regexp = /\w+/y;
+
+  regexp.lastIndex = 3;
+  alert( regexp.exec(str) ); // null (there's a space at position 3, not a word)
+
+  regexp.lastIndex = 4;
+  alert( regexp.exec(str) ); // varName (word at position 4)
+  ```
+
+  ### 正则表达式方法
+
+  #### str.match(regexp)
+  三种情况:
+  * 如果正则表达式没有 g 修饰符,返回第一个找到的字符
+  * 如果有 g ,返回包含全部符合表达式字符的数组
+  * 没找到返回 null
+
+  如果不想有 null,则需写成
+  ``` javascript
+  let result = str.match(regexp) || [];
+  ```
+  #### str.matchAll(regexp)
+  返回可迭代对象,可用Array.from 转化
+  ``` javascript
+  let str = '<h1>Hello, world!</h1>';
+  let regexp = /<(.*?)>/g;
+
+  let matchAll = str.matchAll(regexp);
+
+  alert(matchAll); // [object RegExp String Iterator], not array, but an iterable
+
+  matchAll = Array.from(matchAll); // array now
+
+  let firstMatch = matchAll[0];
+  alert( firstMatch[0] );  // <h1>
+  alert( firstMatch[1] );  // h1
+  alert( firstMatch.index );  // 0
+  alert( firstMatch.input );  // <h1>Hello, world!</h1>
+  ```
+  #### str.split(regexp|substr, limit)
+  ``` javascript
+  alert('12-34-56'.split('-')) // array of [12, 34, 56]
+  alert('12, 34, 56'.split(/,\s*/)) // array of [12, 34, 56]
+  ```
+  #### str.search(regexp) 
+  查找函数
+  找到字符串, 返回所在序号
+  没找到,返回 -1
+  #### str.replace(str|regexp, str|func)
+  最简单的应用:(替换字符)
+  ``` javascript
+  // replace a dash by a colon
+  alert('12-34-56'.replace("-", ":")) // 12:34-56
+  // 若要全局替换,则 需要正则表达式
+  alert( '12-34-56'.replace( /-/g, ":" ) )  // 12:34:56
+  ```
+  $&	inserts the whole match
+  $`	inserts a part of the string before the match
+  $'	inserts a part of the string after the match
+  $n	if n is a 1-2 digit number, inserts the contents of n-th capturing group, for details see Capturing groups
+  $<name>	inserts the contents of the parentheses with the given name, for details see Capturing groups
+  $$	inserts character $
+
+  第二个参数如果为函数,则
+  函数有以下参数
+  match – match所得的记过,
+  p1, p2, ..., pn 被捕获的,
+  offset – match 所开始的位置,
+  input – 原字符串,
+  groups 一个对象
+
+  如果正则表达式没有捕获,则只有三个参数 str, offset, input
+  例如: 
+  下面的例子让 html 和 css 大写
+  ``` javascript
+  let str = "html and css";
+
+  let result = str.replace(/html|css/gi, str => str.toUpperCase());
+
+  alert(result); // HTML and CSS
+
+  alert("Ho-Ho-ho".replace(/ho/gi, (match, offset) => offset)); // 0-3-6
+  ```
+
+  使用捕获的内容
+  ``` javascript
+  let str = "John Smith";
+
+  let result = str.replace(/(\w+) (\w+)/, (match, name, surname) => `${surname}, ${name}`);
+
+  alert(result); // Smith, John
+  ```
+
+  #### regexp.exec(str)
+
+  * 正则表达式没有 g 修饰符, 与 match() 相同
+  * 正则表达式有 g 修饰符
+    regexp.exec(str) 返回一个对象
+    包括现在查找到的字符串,和 字符串后面一位的序号,用于下一次继续使用该方法,可用于迭代器
+  ``` javascript
+  let str = 'More about JavaScript at https://javascript.info';
+  let regexp = /javascript/ig;
+
+  let result;
+
+  while (result = regexp.exec(str)) {
+    alert( `Found ${result[0]} at position ${result.index}` );
+    // Found JavaScript at position 11, then
+    // Found javascript at position 33
+  }
+  ```
+  ##### 通过给正则表达式,设置 lastIndex 属性,来查找特定位置的字符串
+  ``` javascript
+  let str = 'Hello, world!';
+
+  let regexp = /\w+/g; // without flag "g", lastIndex property is ignored
+  regexp.lastIndex = 5; // search from 5th position (from the comma)
+
+  alert( regexp.exec(str) ); // world
+  ```
+
+  ##### y 修饰符,如果有y修饰符,设置了 lastIndex 后, 只会在该位置来查找字符串,没找到返回 null 
+  ``` javascript
+  let str = 'Hello, world!';
+
+  let regexp = /\w+/y;
+  regexp.lastIndex = 5; // search exactly at position 5
+
+  alert( regexp.exec(str) ); // null
+  ```
+  #### regexp.test(str)
+  查找字符串, 找到返回下标,找不到返回 -1 .
+  * 如果字符串有 g 修饰符,则返回一个对象有 lastIndex ,即和 exec() 相同
+  ``` javascript
+  let regexp = /love/gi;
+
+  let str = "I love JavaScript";
+
+  // start the search from position 10:
+  regexp.lastIndex = 10;
+  alert( regexp.test(str) ); // false (no match)
+  ```

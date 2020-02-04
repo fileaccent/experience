@@ -187,7 +187,7 @@
     }
     loadScript('2.js', function(error, script) {
       if (error) {
-        alert("加载失败");
+        console.log("加载失败");
       } else {
         console.log(name);
       }
@@ -254,9 +254,27 @@ $(function(){
   // 创建节点树
   addHTML();
   */
+  /*
   document.querySelector('input').addEventListener('keydown', function(event) {
     console.log(event);
   })
+  */
+  let str = 'let varName';
+
+  let regexp = /\w+/g;
+  console.log(regexp.lastIndex); // 0 (initially lastIndex=0)
+
+  let word1 = regexp.exec(str);
+  console.log(word1); // let (1st word)
+  console.log(regexp.lastIndex); // 3 (position after the match)
+
+  let word2 = regexp.exec(str);
+  console.log(word2); // varName (2nd word)
+  console.log(regexp.lastIndex); // 11 (position after the match)
+
+  let word3 = regexp.exec(str);
+  console.log(word3); // null (no more matches)
+  console.log(regexp.lastIndex); // 0 (resets at search end)
   </script>
   <div>hi</div>
 </body>

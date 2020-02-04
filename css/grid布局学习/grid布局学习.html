@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    body {
+      margin:0;
+      padding:0;
+      width:100vw;
+      height:100vh;
+      min-width:1200px;
+      min-height:600px;
+      display:grid;
+      grid:1.5fr 2fr 1fr / 1fr;
+    }
+    body > div {
+      border: 1px solid black;
+    }
+    .column1 {
+      display:grid;
+      grid:1fr / 1fr;
+    }
+    .column1 > div {
+      border:1px solid black;
+    }
+    .column2 {
+      display:grid;
+      grid:1fr / 1fr 1fr;
+      align-items: center;
+      justify-items: space-between;
+    }
+    .column2 > div {
+      background-color: rgb(140, 203, 228);
+      display:grid;
+      grid:1fr / 1fr 1fr;
+    }
+    .column2 > div > div {
+      background-color: rgb(236, 170, 233);
+    }
+    .column3 {
+      display:grid;
+      grid:1fr / 1fr 1fr;
+    }
+    .column3 > div {
+      display:grid;
+      grid:1fr / 1fr;
+      border:1px solid black;
+      align-items: center;
+      justify-items: center;
+    }
+    .box {
+      width:200px;
+      height:100px;
+      background-color: rgb(214, 230, 172);
+    }
+   </style>
+</head>
+<body>
+  <div class="column1">
+    <div></div>
+  </div>
+  <div class="column2">
+    <div>
+      <div>
+        
+      </div>
+      <div>
+        <div class="box"></div>
+      </div>
+    </div>
+    <div>
+      <div>
+        <div class="box"></div>
+      </div>
+      <div>
+        <div class="box"></div>
+      </div>
+    </div>
+  </div>
+  <div class="column3">
+    <div>
+      <div class="box"></div>
+    </div>
+    <div>
+      <div class="box"></div>
+    </div>
+  </div>
+</body>
+</html>

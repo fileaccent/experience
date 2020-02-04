@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    #greenBlock {
+      width:1000px;
+      height:600px;
+      background-color: rgb(94, 216, 159);
+      margin:0 auto;
+      margin-top:50px;
+    }
+    #ball {
+      width:50px;
+      height:50px;
+      border-radius:50%;
+      background-color:aliceblue;
+      position:absolute;
+      top:200px;
+      left:300px;
+      transition: left 3s;
+    }
+  </style>
+</head>
+<body>
+  <div id="greenBlock">
+    <div id="ball"></div>
+  </div>
+  <script>
+    ball.onclick = function () {
+      let times = 1;
+      function go () {
+        if (times % 2 === 1) {
+          ball.style.left = 1300 + 'px';
+        } else {
+          ball.style.left = 300 + 'px';
+        }
+      }
+      go();
+      ball.addEventListener('transitionend', function() {
+        times++;
+        go();
+      })
+    }
+  </script>
+</body>
+</html>

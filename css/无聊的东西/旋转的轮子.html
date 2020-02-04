@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    body {
+      width:100vw;
+      height:100vh;
+      background-color: rgb(166, 218, 228);
+      padding:0;
+      margin:0;
+    }
+    @keyframes rotates {
+      0%   {
+        transform:rotate(0);
+      }
+      100%  {
+        transform:rotate(360deg);
+      }
+    }
+    .center {
+      width:600px;
+      height:600px;
+      border: 3px solid rgb(224, 162, 162);
+      position:absolute;
+      top:200px;
+      left:200px;
+      position:absolute;
+      transform:translate(-50%,-50%);
+      border-radius:50%;
+      animation: rotates 10s linear;
+      animation-iteration-count: infinite;
+    }
+    .center::before {
+      width:5%;
+      height:5%;
+      content:'';
+      background-color:rgb(177, 144, 199);
+      border-radius:50%;
+      position:absolute;
+      top:50%;
+      left:50%;
+      transform:translate(-50%,-50%);
+      z-index:2;
+    }
+    .stick {
+      width:inherit;
+      height:1%;
+      background-color:aliceblue;
+      position:absolute;
+      top:50%;
+      left:50%;
+    }
+    .stick1 {
+      transform:translate(-50%,-50%) rotate(0deg);
+    }
+    .stick2 {
+      transform:translate(-50%,-50%) rotate(30deg);
+    }
+    .stick3 {
+      transform:translate(-50%,-50%) rotate(60deg);
+    }
+    .stick4 {
+      transform:translate(-50%,-50%) rotate(90deg);
+    }
+    .stick5 {
+      transform:translate(-50%,-50%) rotate(120deg);
+    }
+    .stick6 {
+      transform:translate(-50%,-50%) rotate(150deg);
+    }
+  </style>
+</head>
+<body>
+  <div class="center">
+    <div class="stick stick1">
+      
+    </div>
+    <div class="stick stick2">
+      
+    </div>
+    <div class="stick stick3">
+      
+    </div>
+    <div class="stick stick4">
+      
+    </div>
+    <div class="stick stick5">
+      
+    </div>
+    <div class="stick stick6">
+      
+    </div>
+  </div>
+
+</body>
+</html>
