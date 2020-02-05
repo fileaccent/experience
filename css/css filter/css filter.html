@@ -5,8 +5,57 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
+  <style>
+    body {
+      width:100%;
+      height:100%;
+      display:flex;
+      justify-content: space-around;
+      align-content: center;
+      flex-wrap: wrap;
+    }
+    img:nth-child(1) {
+      filter: blur(12px);
+    }
+    img:nth-child(2) {
+      filter: grayscale(1);
+    }
+    img:nth-child(3) {
+      filter: sepia(1);
+    }
+    img:nth-child(4) {
+      filter: saturate(2);
+    }
+    img:nth-child(5) {
+      filter: hue-rotate(90deg);
+    }
+    img:nth-child(6) {
+      filter: invert(1);
+    }
+    img:nth-child(7) {
+      filter: opacity(0.5);
+    }
+    img:nth-child(8) {
+      filter:brightness(0.5);
+    }
+    img:nth-child(9) {
+      filter: contrast(5);
+    }
+    img:nth-child(10) {
+      filter: drop-shadow(10px 10px 10px #000);
+    }
+  </style>
 </head>
 <body>
-  
+  <img src="example.jpg"/>
+  <img src="example.jpg"/>
+  <img src="example.jpg"/>
+  <img src="example.jpg"/>
+  <img src="example.jpg"/>
+  <img src="example.jpg"/>
+  <img src="example.jpg"/>
+  <img src="example.jpg"/>
+  <img src="example.jpg"/>
+  <img src="example.jpg"/>
 </body>
 </html>
