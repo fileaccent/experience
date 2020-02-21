@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .box {
+      width:200px;
+      height:200px;
+      margin: 0 auto;
+      position:relative;
+    }
+    .box:before {
+      width:20px;
+      height:20px;
+      border-radius:50%;
+      background-color: rgb(221, 129, 129);
+      display:inline-block;
+      content: "";
+    }
+    .box:after {
+      width:20px;
+      height:20px;
+      border-radius:50%;
+      position: absolute;
+      top:10%;
+      left:10%;
+      background-color: rgb(221, 129, 129);
+      content: "";
+    }
+  </style>
+</head>
+<body>
+  <div class="box"></div>
+</body>
+</html>

@@ -64,7 +64,7 @@ space-between：两端对齐，项目之间的间隔都相等。
 
 space-around：每个项目两侧的间隔相等。所以，项目之间的间隔比项目与边框的间隔大一倍。
 
-#### align-items 属性
+#### align-items 属性 (如果是单行的话,用这个)
 
 flex-start：交叉轴的起点对齐。
 
@@ -78,7 +78,7 @@ stretch（默认值）：如果项目未设置高度或设为auto，将占满整
 
 ![](http://www.runoob.com/wp-content/uploads/2015/07/2b0c39c7e7a80d5a784c8c2ca63cde17.png)
 
-#### align-content 属性
+#### align-content 属性(多行用这个)
 
 align-content属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。
 
